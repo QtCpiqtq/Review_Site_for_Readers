@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   
     get 'reviews/show'
     get 'reviews/new'
-  
+    
+    get 'books/search' => 'books#search'
     resources :books, only: [:index, :show]
     
     get 'mypage' => 'users#mypage'
