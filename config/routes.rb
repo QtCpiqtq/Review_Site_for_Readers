@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     get 'reviews/show'
     get 'reviews/new'
     
+    resources :favorite_books, only: [:create]
+    
     get 'books/search' => 'books#search'
     resources :books, only: [:index, :show]
     
@@ -24,7 +26,8 @@ Rails.application.routes.draw do
     patch 'information/edit' => 'users#update'
     get 'unsubscribe' => 'users#unsubscribe'
     patch 'withdraw' => 'users#withdraw'
-    get 'users/show/:id' => 'users#show'
+    delete 'image_destroy' => 'users#destroy'
+    get 'userpage' => 'users#show'
   end
   
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
