@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :books, only: [:index]
     get 'books/search' => 'books#search'
     get 'books/:isbn', to: "books#show", as: "book"
-    resources :reviews, only: [:show]
+    resources :reviews, only: [:show, :destroy]
     get 'books/:isbn/reviews/new', to: "reviews#new", as: "new_book_review"
     post 'books/:isbn/reviews', to: "reviews#create", as: "book_reviews"
     

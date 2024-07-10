@@ -16,5 +16,4 @@ class User < ApplicationRecord
   def added_to_favorite?(book_id)
     self.favorite_books.pluck(:book_id).include?(book_id)
   end
-    
 end
