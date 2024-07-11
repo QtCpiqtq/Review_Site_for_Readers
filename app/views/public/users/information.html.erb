@@ -1,0 +1,42 @@
+<%= render 'public/header' %>
+
+<h1>会員情報</h1>
+
+<% if @user.image.attached? %>
+    <%= image_tag @user.get_image(100,100) %>
+<% else %>
+    <p>no image</p>
+<% end %>
+
+<table>
+  <tr>
+    <th>ユーザーネーム</th>
+    <td><%= @user.name %></td>
+  </tr>
+  <tr>
+    <th>メールアドレス</th>
+    <td><%= @user.email %></td>
+  </tr>
+</table>    
+
+<%= link_to "編集する", information_edit_path %>
+        
+<table>
+  <th><h4>お気に入りの本</h4></th>
+        
+  <% @favorite_books.each do |favorite_book| %>
+    <tr>
+      <td>
+        <%= link_to favorite_book.book.get_book_date(favorite_book.book.isbn).title, book_path(favorite_book.book.isbn) %>
+        <%= link_to "お気に入りの本から解除する", favorite_book_path(favorite_book.book.id), method: :delete %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+        
+</table>
+
+<%= link_to "本を探す", books_search_path %>
+
+
+

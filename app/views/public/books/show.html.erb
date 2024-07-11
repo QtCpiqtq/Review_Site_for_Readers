@@ -1,0 +1,34 @@
+<%= render 'public/header' %>
+
+<h2><%= @book.title %></h2>
+
+<% if user_signed_in? %>
+  <% if @book_id && current_user.added_to_favorite?(@book_id) %>
+    <%= form_with url: favorite_book_path(@book_id), method: :delete do |f| %>
+        <%= f.submit 'お気に入りの本から解除する' %>
+    <% end %>
+  <% else %>
+    <%= form_with url: favorite_books_path, method: :post do |f| %>
+        <%= f.hidden_field :isbn, :value => @book.isbn %>
+        <%= f.submit 'お気に入りの本に登録する' %>
+    <% end %>
+  <% end %>
+  
+  <%= link_to 'この本のレビューを投稿する', new_book_review_path(@book.isbn) %>
+<% end %>
+
+<h3>みんなのレビュー</h3>
+
+<%if Book.get_reviews(@book.isbn).present? %>
+  <% Book.get_reviews(@book.isbn).each do |review| %>
+  
+    <%= review.user.name %>
+    <%= review.body %>
+    <%= link_to 'more', review_path(review.id) %>
+  
+  <% end %>
+  
+<% else %>
+    <h4>まだレビューがありません</h4>
+<% end %>
+
