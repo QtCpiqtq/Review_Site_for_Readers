@@ -6,9 +6,14 @@ class Public::FavoriteBooksController < ApplicationController
   end
   
   def destroy
-      book = Book.find(params[:id])
-      current_user.favorite_books.find_by(book_id: book.id)&.destroy
+    book = Book.find(params[:id])
+    current_user.favorite_books.find_by(book_id: book.id)&.destroy
+    case params[:delete_sort]
+    when "0"
+      redirect_to information_path
+    when "1"
       redirect_to book_path(book.isbn)
+    end
   end
   
   private

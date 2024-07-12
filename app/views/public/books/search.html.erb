@@ -1,5 +1,3 @@
-<%= render 'public/header' %>
-
 <%= form_with url: books_path, method: :get, local: true do |form| %>
   <%= form.text_field :keyword %>
   <%= form.submit 'タイトルから探す' %>

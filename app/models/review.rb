@@ -1,6 +1,9 @@
 class Review < ApplicationRecord
   belongs_to :user
   belongs_to :book
+  
+  validates :evolution, presence: true
+  validates :body, presence: true
 
   enum evolution: {
   ★☆☆☆☆: 1,

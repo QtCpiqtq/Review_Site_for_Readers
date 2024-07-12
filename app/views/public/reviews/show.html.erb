@@ -1,5 +1,3 @@
-<%= render 'public/header' %>
-
 <% book_date = @review.get_book_date(@review.book.isbn) %>
 
 <h2>
@@ -13,5 +11,5 @@
 <%= @review.body %><br>
 
 <% if @review.user == current_user %>
-  <%= link_to 'レビューを削除する', review_path(@review.id), method: :delete %>
+  <%= link_to 'レビューを削除する', review_path(@review.id), method: :delete, data: { confirm: 'このレビューを削除しますか?' } %>
 <% end %>

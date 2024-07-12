@@ -17,8 +17,10 @@ class Public::UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
+      flash[:notice] = '編集内容を保存しました。'
       redirect_to information_path
     else
+      flash.now[:alert] = '編集の保存に失敗しました。'
       render :edit
     end
   end
@@ -34,9 +36,14 @@ class Public::UsersController < ApplicationController
   
   def withdraw
     user = current_user
-    user.update(is_active: false)
-    sign_out user
-    redirect_to root_path
+    if user.update(is_active: false)
+      sign_out user
+      flash[:notice] = '退会が完了しました。ご利用ありがとうございました。'
+      redirect_to root_path
+    else
+      flash.now[:alert] = '退会に失敗しました。時間をおいてから再度お試しください。'
+      render :edit
+    end
   end
   
   private
