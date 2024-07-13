@@ -1,6 +1,7 @@
 class Review < ApplicationRecord
   belongs_to :user
   belongs_to :book
+  has_many :comments, dependent: :destroy
   
   validates :evolution, presence: true
   validates :body, presence: true

@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :favorite_books, dependent: :destroy
   has_many :books, through: :favorite_books
   has_many :reviews, dependent: :destroy
+  has_many :comments, dependent: :destroy
   
   def get_image(width, height)
     image.variant(resize_to_limit: [width, height]).processed

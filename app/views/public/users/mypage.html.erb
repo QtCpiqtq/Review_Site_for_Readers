@@ -3,9 +3,14 @@
 
   <%if @reviews.present? %>
     <% @reviews.each do |review| %>
-      <%= review.get_book_date(review.book.isbn).title %><br>
+      <h3><%= review.get_book_date(review.book.isbn).title %></h3>
       
-      <%= review.body %>
+      <% if review.body.length > 50 %>
+        <%= review.body.truncate(50) %><br>
+      <% else %>
+        <%= review.body %><br>
+      <% end %>
+      
       <%= link_to 'more', review_path(review.id) %><br>
     <% end %>
   <% else %>
@@ -22,7 +27,7 @@
     <p>no image</p>
   <% end %>
 
-  <h4><%= @user.name %></h4>
+  <h3><%= @user.name %></h3>
   <table>
     <tr>
       <td></td>

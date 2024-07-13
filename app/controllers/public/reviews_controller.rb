@@ -1,6 +1,8 @@
 class Public::ReviewsController < ApplicationController
   def show
     @review = Review.find(params[:id])
+    @comment = Comment.new
+    @comments = Comment.all
   end
 
   def new
@@ -14,10 +16,10 @@ class Public::ReviewsController < ApplicationController
     @review.book_id = @book.id
     
     if @review.save
-      flash[:notice] = "レビュー作成に成功しました。。"
+      flash[:notice] = "レビュー投稿に成功しました。"
       redirect_to mypage_path(current_user)
     else
-      flash.now[:alert] = "レビュー作成に失敗しました。"
+      flash.now[:alert] = "レビュー投稿に失敗しました。"
       @book = RakutenWebService::Books::Book.search(isbn: params[:isbn]).first
       @reviews = Review.new
       render :new

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   
     get 'followers/index'
     
+    
+    
     resources :favorite_books, only: [:create, :destroy]
     
     resources :books, only: [:index]
@@ -21,6 +23,8 @@ Rails.application.routes.draw do
     get 'books/:isbn/reviews/new', to: "reviews#new", as: "new_book_review"
     post 'books/:isbn/reviews', to: "reviews#create", as: "book_reviews"
     
+    post 'reviews/:review_id/comments' => 'comments#create', as: 'review_comments'
+    delete 'reviews/comments/:id' => 'comments#destroy', as: 'review_comment'
     
     get 'mypage/:id' => 'users#mypage', as: 'mypage'
     get 'information' => 'users#information'

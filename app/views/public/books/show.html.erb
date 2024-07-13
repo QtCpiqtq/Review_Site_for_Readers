@@ -11,7 +11,7 @@
         <%= f.submit 'お気に入りの本に登録する' %>
     <% end %>
   <% end %>
-  
+
   <%= link_to 'この本のレビューを投稿する', new_book_review_path(@book.isbn) %>
 <% end %>
 
@@ -19,13 +19,25 @@
 
 <%if Book.get_reviews(@book.isbn).present? %>
   <% Book.get_reviews(@book.isbn).each do |review| %>
-  
-    <%= review.user.name %>
-    <%= review.body %>
+
+    <% if review.user.image.attached? %>
+      <%= image_tag review.user.get_image(100,100) %><br>
+    <% else %>
+      <p>no image</p>
+    <% end %>
+
+    <%= review.user.name %><br>
+
+    <% if review.body.length > 50 %>
+      <%= review.body.truncate(50) %><br>
+    <% else %>
+      <%= review.body %><br>
+    <% end %>
+
     <%= link_to 'more', review_path(review.id) %>
-  
+
   <% end %>
-  
+
 <% else %>
     <h4>まだレビューがありません</h4>
 <% end %>
