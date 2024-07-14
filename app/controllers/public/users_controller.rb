@@ -2,7 +2,8 @@ class Public::UsersController < ApplicationController
   def mypage
     @user = User.find(params[:id])
     @reviews = @user.reviews.all
-    @favorite_books = @user.books
+    @wish_lists = @user.wish_lists
+    @favorite_books = @user.books.all
   end
 
   def information

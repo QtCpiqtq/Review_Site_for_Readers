@@ -1,7 +1,7 @@
 <h2><%= @book.title %></h2>
 
 <% if user_signed_in? %>
-  <% if @book_id && current_user.added_to_favorite?(@book_id) %>
+  <% if @book_id && current_user.added_to_favorites?(@book_id) %>
     <%= form_with url: favorite_book_path(@book_id, delete_sort: 1), method: :delete do |f| %>
         <%= f.submit 'お気に入りの本から解除する' %>
     <% end %>
@@ -9,6 +9,17 @@
     <%= form_with url: favorite_books_path, method: :post do |f| %>
         <%= f.hidden_field :isbn, :value => @book.isbn %>
         <%= f.submit 'お気に入りの本に登録する' %>
+    <% end %>
+  <% end %>
+  
+  <% if @book_id && current_user.added_to_wish_lists?(@book_id) %>
+    <%= form_with url: wish_list_path(@book_id, delete_sort: 1), method: :delete do |f| %>
+        <%= f.submit '読みたい本から解除する' %>
+    <% end %>
+  <% else %>
+    <%= form_with url: wish_lists_path, method: :post do |f| %>
+        <%= f.hidden_field :isbn, :value => @book.isbn %>
+        <%= f.submit '読みたい本に登録する' %>
     <% end %>
   <% end %>
 

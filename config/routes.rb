@@ -8,13 +8,16 @@ Rails.application.routes.draw do
   }
   
   scope module: :public do
-    get 'wish_lists/index'
-  
-    get 'followers/index'
-    
-    
-    
+   
     resources :favorite_books, only: [:create, :destroy]
+    
+    get 'mypage/:id' => 'users#mypage', as: 'mypage'
+    get 'information' => 'users#information'
+    get 'information/edit' => 'users#edit'
+    patch 'information/edit' => 'users#update'
+    get 'unsubscribe' => 'users#unsubscribe'
+    patch 'withdraw' => 'users#withdraw'
+    delete 'image_destroy' => 'users#destroy'
     
     resources :books, only: [:index]
     get 'books/search' => 'books#search'
@@ -26,13 +29,8 @@ Rails.application.routes.draw do
     post 'reviews/:review_id/comments' => 'comments#create', as: 'review_comments'
     delete 'reviews/comments/:id' => 'comments#destroy', as: 'review_comment'
     
-    get 'mypage/:id' => 'users#mypage', as: 'mypage'
-    get 'information' => 'users#information'
-    get 'information/edit' => 'users#edit'
-    patch 'information/edit' => 'users#update'
-    get 'unsubscribe' => 'users#unsubscribe'
-    patch 'withdraw' => 'users#withdraw'
-    delete 'image_destroy' => 'users#destroy'
+    resources :wish_lists, only: [:create, :destroy]
+    get 'mypage/:id/wish_lists/index' => 'wish_lists#index', as: 'wish_lists_index'
   end
   
   devise_for :admin, skip: [:registrations, :passwords], controllers: {

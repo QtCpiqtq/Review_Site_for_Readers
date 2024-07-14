@@ -14,11 +14,12 @@
   <%= link_to 'レビュー削除', review_path(@review.id), method: :delete, data: { confirm: 'このレビューを削除しますか?' } %>
 <% end %>
 
+
 <h3>みんなのコメント</h3>
 
 <%= form_with model: @comment, url: review_comments_path(@review.id), method: :post do |f| %>
   <%= f.text_field :body %>
-  <%= f.submit %>
+  <%= f.submit 'コメントする' %>
 <% end %>
 
 <% @comments.each do |comment| %>
