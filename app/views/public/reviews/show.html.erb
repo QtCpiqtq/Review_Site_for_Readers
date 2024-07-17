@@ -1,0 +1,31 @@
+<% book_date = @review.get_book_date(@review.book.isbn) %>
+
+<h2>
+  <%= link_to @review.user.name, mypage_path(@review.user.id) %>さんの
+  <%= link_to book_date.title, book_path(@review.book.isbn) %>のレビュー
+</h2>
+<%= @review.evolution %>
+<%= @review.evolution_before_type_cast %><br>
+<%= @review.feeling_after_reading %><br>
+
+<%= @review.body %><br>
+
+<% if @review.user == current_user %>
+  <%= link_to 'レビュー削除', review_path(@review.id), method: :delete, data: { confirm: 'このレビューを削除しますか?' } %>
+<% end %>
+
+
+<h3>みんなのコメント</h3>
+
+<%= form_with model: @comment, url: review_comments_path(@review.id), method: :post do |f| %>
+  <%= f.text_field :body %>
+  <%= f.submit 'コメントする' %>
+<% end %>
+
+<% @comments.each do |comment| %>
+  <p><%= link_to comment.user.name, mypage_path(comment.user_id) %></p>
+  <p><%= comment.body %></p>
+  <% if comment.user == current_user %>
+    <p><%= link_to 'コメント削除', review_comment_path(comment.id), method: :delete %></p>
+  <% end %>
+<% end %>

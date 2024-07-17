@@ -1,0 +1,24 @@
+<h1>会員情報編集</h1>
+
+<%= form_with model: @user, url: information_edit_path, method: :patch do |f| %>
+<%= render "public/shared/error_messages", resource: @user %>
+
+    <h4>プロフィール画像</h4>
+    <% if @user.image.attached? %>
+        <%= image_tag @user.get_image(100,100) %>
+        <%= link_to "プロフィール画像を設定しない", image_destroy_path, method: :delete %>
+    <% else %>
+        <%= f.file_field :image, accept: "image/*" %>
+    <% end %>
+
+    <h4>ユーザーネーム</h4>
+    <%= f.text_field :name %>
+    
+    <h4>メールアドレス</h4>
+    <%= f.text_field :email %>
+    
+    <br>
+    <%= f.submit "編集内容を保存する" %>
+<% end %>
+
+<%= link_to "退会する", unsubscribe_path %>

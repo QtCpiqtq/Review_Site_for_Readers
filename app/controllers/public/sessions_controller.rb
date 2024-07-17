@@ -4,9 +4,8 @@ class Public::SessionsController < Devise::SessionsController
   before_action :user_state, only: [:create]
   
   def after_sign_in_path_for(resource)
-      mypage_path
+      mypage_path(current_user.id)
   end
-
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

@@ -1,0 +1,12 @@
+<h2>検索結果</h2>
+
+<% if params[:keyword].present? %>
+  <h4>検索ワード: <%= params[:keyword] %></h4>
+<% elsif params[:feeling_after_reading].present? %>
+  <h4>検索読後感: <%= params[:feeling_after_reading] %></h4>
+<% end %>
+
+<% @books.each do |book| %>
+    <%= link_to book.title, book_path(book.isbn) %>
+    <P>レビュー数<%= Book.get_reviews(book.isbn).count %>件</P><br>
+<% end %>

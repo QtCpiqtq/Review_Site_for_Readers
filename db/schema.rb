@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2024_07_05_144009) do
   end
 
   create_table "books", force: :cascade do |t|
-    t.string "ISNB", null: false
+    t.string "isbn", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2024_07_05_144009) do
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "review_id", null: false
-    t.text "comment", null: false
+    t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -95,9 +95,9 @@ ActiveRecord::Schema.define(version: 2024_07_05_144009) do
   create_table "reviews", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "book_id", null: false
-    t.text "review", null: false
+    t.text "body", null: false
     t.integer "feeling_after_reading"
-    t.integer "star", null: false
+    t.float "evolution", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(version: 2024_07_05_144009) do
     t.string "encrypted_password", default: "", null: false
     t.string "name", null: false
     t.boolean "is_active", default: true, null: false
-    t.text "introduction"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
