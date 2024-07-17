@@ -24,4 +24,5 @@ class User < ApplicationRecord
   def added_to_wish_lists?(book_id)
     self.wish_lists.pluck(:book_id).include?(book_id)
   end
+  
 end

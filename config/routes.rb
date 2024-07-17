@@ -2,15 +2,13 @@ Rails.application.routes.draw do
   root to: "homes#top"
   get 'about' => "homes#about"
   
-  devise_for :users, skip: [:passwords], controllers: {
+  devise_for :users,
+  skip: [:passwords], controllers: {
     registrations: 'public/registrations',
     sessions: 'public/sessions'
   }
   
   scope module: :public do
-   
-    resources :favorite_books, only: [:create, :destroy]
-    
     get 'mypage/:id' => 'users#mypage', as: 'mypage'
     get 'information' => 'users#information'
     get 'information/edit' => 'users#edit'
@@ -18,6 +16,7 @@ Rails.application.routes.draw do
     get 'unsubscribe' => 'users#unsubscribe'
     patch 'withdraw' => 'users#withdraw'
     delete 'image_destroy' => 'users#destroy'
+    post 'guest_login', to: 'users#guest_login'
     
     resources :books, only: [:index]
     get 'books/search' => 'books#search'
@@ -28,6 +27,8 @@ Rails.application.routes.draw do
     
     post 'reviews/:review_id/comments' => 'comments#create', as: 'review_comments'
     delete 'reviews/comments/:id' => 'comments#destroy', as: 'review_comment'
+    
+    resources :favorite_books, only: [:create, :destroy]
     
     resources :wish_lists, only: [:create, :destroy]
     get 'mypage/:id/wish_lists/index' => 'wish_lists#index', as: 'wish_lists_index'

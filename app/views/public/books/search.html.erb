@@ -1,6 +1,9 @@
+<h2>本を探す</h2>
+<h4>タイトルから探す</h4>
 <%= form_with url: books_path, method: :get, local: true do |f| %>
   <%= f.text_field :keyword %>
-  <%= f.submit 'タイトルから探す' %>
+  <%= f.submit '検索' %>
 <% end %>
 
-<h4>ジャンルから探す</h4>
+<h4>ユーザーの読後感から探す</h4>
+<%= link_to '感動的', books_path(feeling_after_reading: '感動的') %>

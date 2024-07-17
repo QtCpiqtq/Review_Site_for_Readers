@@ -17,7 +17,9 @@
   </tr>
 </table>    
 
-<%= link_to "編集する", information_edit_path %>
+<% if current_user.email != 'guest@guest' %>
+  <%= link_to "編集する", information_edit_path %>
+<% end %>
         
 <table>
   <th><h4>お気に入りの本</h4></th>

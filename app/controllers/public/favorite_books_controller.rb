@@ -1,8 +1,14 @@
 class Public::FavoriteBooksController < ApplicationController
   def create
     book = Book.find_or_create_by(isbn: params[:isbn])
-    current_user.favorite_books.find_or_create_by(book_id: book.id)
-    redirect_to book_path(book.isbn)
+    @favorite_book = current_user.favorite_books.find_or_initialize_by(book_id: book.id)
+    if @favorite_book.new_record? && @favorite_book.save
+      flash[:notice] = "OK"
+      redirect_to book_path(book.isbn)
+    else
+      flash[:alert] = @favorite_book.errors.full_messages.first
+      redirect_to book_path(book.isbn)
+    end
   end
 
   def destroy
