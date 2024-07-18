@@ -50,7 +50,7 @@ class Public::UsersController < ApplicationController
   end
 
   def guest_login
-    @user = User.find_or_initialize_by(name: "guest", email: 'guest@guest')
+    @user = User.find_or_initialize_by(name: "ゲスト", email: 'guest@guest')
     @user.password = SecureRandom.hex(10)
     @user.save
     flash[:notice] = "ログインに成功しました。"

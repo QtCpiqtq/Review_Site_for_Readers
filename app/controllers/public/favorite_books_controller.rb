@@ -3,7 +3,6 @@ class Public::FavoriteBooksController < ApplicationController
     book = Book.find_or_create_by(isbn: params[:isbn])
     @favorite_book = current_user.favorite_books.find_or_initialize_by(book_id: book.id)
     if @favorite_book.new_record? && @favorite_book.save
-      flash[:notice] = "OK"
       redirect_to book_path(book.isbn)
     else
       flash[:alert] = @favorite_book.errors.full_messages.first

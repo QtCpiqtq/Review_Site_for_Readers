@@ -1,59 +1,67 @@
-<div>
-  <h2><%= @user.name %>さんのレビュー</h2>
-
-  <%if @reviews.present? %>
-    <% @reviews.each do |review| %>
-      <h3><%= review.get_book_date(review.book.isbn).title %></h3>
-
-      <% if review.body.length > 50 %>
-        <%= review.body.truncate(50) %><br>
-      <% else %>
-        <%= review.body %><br>
+<div class="row">
+  <div class="col-9">
+    <h2 class="text-center"><%= @user.name %> さんのレビュー</h2>
+    
+    <%if @reviews.present? %>
+    
+      <% @reviews.each do |review| %>
+        <div class="shadow rounded m-3 p-5">
+          <h4><%= review.get_book_date(review.book.isbn).title %></h4>
+    
+          <% if review.body.length > 50 %>
+            <p><%= review.body.truncate(50) %></p>
+          <% else %>
+            <p><%= review.body %></p>
+          <% end %>
+    
+          <p class="text-right"><%= link_to 'more', review_path(review.id), class: "pr-3 pl-3 border text-dark rounded" %></p>
+        </div>
       <% end %>
-
-      <%= link_to 'more', review_path(review.id) %><br>
+      
+    <% else %>
+      <div class="m-3 p-5">
+        <h4 class="text-center">まだレビューがありません</h4>
+      </div>
     <% end %>
-  <% else %>
-    <h4>まだレビューがありません</h4>
-  <% end %>
-
-</div>
+  </div>
 
 
-<div>
-  <% if @user.image.attached? %>
-    <%= image_tag @user.get_image(100,100) %>
-  <% else %>
-    <p>no image</p>
-  <% end %>
-
-  <h3><%= @user.name %></h3>
-  <table>
-    <tr>
-      <td>0</td>
-      <td>0</td>
-      <td><%= link_to @wish_lists.count, wish_lists_index_path(@user.id) %></td>
-    </tr>
-    <tr>
-      <th><p>フォロー</p></th>
-      <th><p>フォロワー</p></th>
-      <th><p>読みたい</p></th>
-    </tr>
-  </table>
-
-  <table>
-    <th><h4>お気に入りの本</h4></th>
-
-    <% @favorite_books.each do |book| %>
-    <tr>
-      <td>
-        <%= link_to book.get_book_date(book.isbn).title, book_path(book.isbn) %>
-      </td>
-    </tr>
+  <div class="col-3">
+    <% if @user.image.attached? %>
+      <%= image_tag @user.get_image(100,100), class: "rounded-circle" %>
+    <% else %>
+      <p>no image</p>
     <% end %>
-  </table>
-
-  <% if current_user  == @user %>
-    <p><%= link_to "会員情報を確認する", information_path %></p>
-  <% end %>
+  
+    <h3><%= @user.name %></h3>
+    
+    <table>
+      <tr>
+        <td>0</td>
+        <td>0</td>
+        <td><%= link_to @wish_lists.count, wish_lists_index_path(@user.id) %></td>
+      </tr>
+      <tr>
+        <th><p>フォロー</p></th>
+        <th><p>フォロワー</p></th>
+        <th><p>読みたい</p></th>
+      </tr>
+    </table>
+  
+    <table>
+      <th><h4>お気に入りの3冊</h4></th>
+  
+      <% @favorite_books.each do |book| %>
+      <tr>
+        <td>
+          <%= link_to book.get_book_date(book.isbn).title, book_path(book.isbn) %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  
+    <% if current_user  == @user %>
+      <p><%= link_to "会員情報を確認する", information_path %></p>
+    <% end %>
+  </div>
 </div>
