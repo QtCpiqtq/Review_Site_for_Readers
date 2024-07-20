@@ -1,12 +1,22 @@
-<h2>検索結果</h2>
+<div class="row justify-content-center">
+  <div class="col col-md-8 m-1">
 
-<% if params[:keyword].present? %>
-  <h4>検索ワード: <%= params[:keyword] %></h4>
-<% elsif params[:feeling_after_reading].present? %>
-  <h4>検索読後感: <%= params[:feeling_after_reading] %></h4>
-<% end %>
+    <h2>検索結果</h2>
 
-<% @books.each do |book| %>
-    <%= link_to book.title, book_path(book.isbn) %>
-    <P>レビュー数<%= Book.get_reviews(book.isbn).count %>件</P><br>
-<% end %>
+    <% if params[:keyword].present? %>
+      <h3>検索ワード: <%= params[:keyword] %></h3>
+    <% elsif params[:feeling_after_reading].present? %>
+      <h4>検索読後感: <%= params[:feeling_after_reading] %></h4>
+    <% end %>
+
+    <div class="m-3">
+      <% @books.each do |book| %>
+        <div class="border-bottom p-1">
+          <h4 class="pt-3"><%= link_to book.title, book_path(book.isbn), class: "text-dark" %></h4>
+          <P>レビュー数<%= Book.get_reviews(book.isbn).count %>件</P>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>

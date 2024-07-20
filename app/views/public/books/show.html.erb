@@ -1,55 +1,72 @@
-<h2><%= @book.title %></h2>
+<div class="row justify-content-center">
+  <div class="col-11 col-md-6">
 
-<% if user_signed_in? %>
-  <% if @book_id && current_user.added_to_favorites?(@book_id) %>
-    <%= form_with url: favorite_book_path(@book_id, delete_sort: 1), method: :delete do |f| %>
-        <%= f.submit 'お気に入りの本から解除する' %>
+    <h2 class="mt-3"><%= @book.title %></h2>
+
+  </div>
+
+  <div class="col-10 col-md-3">
+
+    <%= link_to 'この本のレビューを投稿する', new_book_review_path(@book.isbn),
+    class: "btn btn-success btn-block mt-3 d-flex justify-content-center align-items-center", style: "height: 100px;" %>
+
+    <% if user_signed_in? %>
+      <% if @book_id && current_user.added_to_favorites?(@book_id) %>
+        <%= form_with url: favorite_book_path(@book_id, delete_sort: 1), method: :delete do |f| %>
+            <%= f.submit 'お気に入りの本から解除する', class: "btn btn-light btn-block border border-dark mt-2" %>
+        <% end %>
+      <% else %>
+        <%= form_with url: favorite_books_path, method: :post do |f| %>
+            <%= f.hidden_field :isbn, :value => @book.isbn %>
+            <%= f.submit 'お気に入りの本に登録する', class: "btn btn-light btn-block border border-dark mt-2" %>
+        <% end %>
+      <% end %>
+
+      <% if @book_id && current_user.added_to_wish_lists?(@book_id) %>
+        <%= form_with url: wish_list_path(@book_id, delete_sort: 1), method: :delete do |f| %>
+            <%= f.submit '読みたい本から解除する', class: "btn btn-light btn-block border border-dark mt-2" %>
+        <% end %>
+      <% else %>
+        <%= form_with url: wish_lists_path, method: :post do |f| %>
+            <%= f.hidden_field :isbn, :value => @book.isbn %>
+            <%= f.submit '読みたい本に登録する', class: "btn btn-light btn-block border border border-dark mt-2" %>
+        <% end %>
+      <% end %>
     <% end %>
-  <% else %>
-    <%= form_with url: favorite_books_path, method: :post do |f| %>
-        <%= f.hidden_field :isbn, :value => @book.isbn %>
-        <%= f.submit 'お気に入りの本に登録する' %>
-    <% end %>
-  <% end %>
-  
-  <% if @book_id && current_user.added_to_wish_lists?(@book_id) %>
-    <%= form_with url: wish_list_path(@book_id, delete_sort: 1), method: :delete do |f| %>
-        <%= f.submit '読みたい本から解除する' %>
-    <% end %>
-  <% else %>
-    <%= form_with url: wish_lists_path, method: :post do |f| %>
-        <%= f.hidden_field :isbn, :value => @book.isbn %>
-        <%= f.submit '読みたい本に登録する' %>
-    <% end %>
-  <% end %>
-<% end %>
 
-<%= link_to 'この本のレビューを投稿する', new_book_review_path(@book.isbn) %>
+  </div>
+</div>
 
-<h3>みんなのレビュー</h3>
+<div class="row justify-content-center">
+  <div class="col-11 col-md-9">
 
-<%if Book.get_reviews(@book.isbn).present? %>
-  <% Book.get_reviews(@book.isbn).each do |review| %>
+    <h3>みんなのレビュー</h3>
 
-    <% if review.user.image.attached? %>
-      <%= image_tag review.user.get_image(100,100) %><br>
+    <%if Book.get_reviews(@book.isbn).present? %>
+      <% Book.get_reviews(@book.isbn).each do |review| %>
+
+        <% if review.user.image.attached? %>
+          <%= image_tag review.user.get_image(100,100) %><br>
+        <% else %>
+          <p>no image</p>
+        <% end %>
+
+        <%= review.user.name %><br>
+
+        <% if review.body.length > 50 %>
+          <%= review.body.truncate(50) %><br>
+        <% else %>
+          <%= review.body %><br>
+        <% end %>
+
+        <%= link_to 'more', review_path(review.id) %>
+
+      <% end %>
+
     <% else %>
-      <p>no image</p>
+        <h4>まだレビューがありません</h4>
     <% end %>
 
-    <%= review.user.name %><br>
-
-    <% if review.body.length > 50 %>
-      <%= review.body.truncate(50) %><br>
-    <% else %>
-      <%= review.body %><br>
-    <% end %>
-
-    <%= link_to 'more', review_path(review.id) %>
-
-  <% end %>
-
-<% else %>
-    <h4>まだレビューがありません</h4>
-<% end %>
+  </div>
+</div>
 

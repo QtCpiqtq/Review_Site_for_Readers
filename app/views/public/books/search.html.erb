@@ -1,22 +1,49 @@
-<h2>本を探す</h2>
-<h4>タイトルから探す</h4>
-<%= form_with url: books_path, method: :get, local: true do |f| %>
-  <%= f.text_field :keyword %>
-  <%= f.submit '検索' %>
-<% end %>
+ <div class="row justify-content-center">
+  <div class="col col-md-8 m-1">
 
-<h4>ユーザーの読後感から探す</h4>
-<%= link_to '感動的', books_path(feeling_after_reading: '感動的') %>
-<%= link_to '楽しい', books_path(feeling_after_reading: '楽しい') %>
-<%= link_to '悲しい', books_path(feeling_after_reading: '悲しい') %>
-<%= link_to 'ワクワク', books_path(feeling_after_reading: 'ワクワク') %>
-<%= link_to '怖い', books_path(feeling_after_reading: '怖い') %>
-<%= link_to 'ときめく', books_path(feeling_after_reading: 'ときめく') %>
-<%= link_to '爽快', books_path(feeling_after_reading: '爽快') %>
-<%= link_to 'モヤモヤする', books_path(feeling_after_reading: 'モヤモヤする') %>
-<%= link_to '笑える', books_path(feeling_after_reading: '笑える') %>
-<%= link_to '実用的', books_path(feeling_after_reading: '実用的') %>
-<%= link_to '学びがある', books_path(feeling_after_reading: '学びがある') %>
-<%= link_to '心動かす', books_path(feeling_after_reading: '心動かす') %>
-<%= link_to 'その他', books_path(feeling_after_reading: 'その他') %>
+    <h2>本を探す</h2>
 
+    <div class="m-3">
+      <h4>タイトルから探す</h4>
+
+      <%= form_with url: books_path, method: :get, local: true do |f| %>
+        <div class="input-group">
+          <%= f.text_field :keyword, class: "form-control" %>
+          <span class="input-group-btn">
+            <%= f.submit '検索', class: "btn btn-outline-primary" %>
+          </span>
+        </div>
+      <% end %>
+
+      <div class="mt-4">
+        <h4>ユーザーの読後感から探す</h4>
+        <table class="table table-borderless">
+          <tr>
+            <td><%= link_to '感動的', books_path(feeling_after_reading: '感動的') %></td>
+            <td><%= link_to '楽しい', books_path(feeling_after_reading: '楽しい') %></td>
+            <td><%= link_to '悲しい', books_path(feeling_after_reading: '悲しい') %></td>
+          </tr>
+          <tr>
+            <td><%= link_to 'ワクワク', books_path(feeling_after_reading: 'ワクワク') %></td>
+            <td><%= link_to '怖い', books_path(feeling_after_reading: '怖い') %></td>
+            <td><%= link_to 'ときめく', books_path(feeling_after_reading: 'ときめく') %></td>
+          </tr>
+          <tr>
+            <td><%= link_to '爽快', books_path(feeling_after_reading: '爽快') %></td>
+            <td><%= link_to 'モヤモヤする', books_path(feeling_after_reading: 'モヤモヤする') %></td>
+            <td><%= link_to '笑える', books_path(feeling_after_reading: '笑える') %></td>
+          </tr>
+          <tr>
+            <td><%= link_to '実用的', books_path(feeling_after_reading: '実用的') %></td>
+            <td><%= link_to '学びがある', books_path(feeling_after_reading: '学びがある') %></td>
+            <td><%= link_to '心動かす', books_path(feeling_after_reading: '心動かす') %></td>
+          </tr>
+          <tr>
+            <td><%= link_to 'その他', books_path(feeling_after_reading: 'その他') %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
