@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+  <div class="col col-md-8">
+    
+    <h2>会員情報</h2>
+  
+    <table class="table table-bordered">
+      <tr>
+        <th>プロフィール画像</th>
+        <td>
+          <% if @user.image.attached? %>
+            <%= image_tag @user.get_image(150,150), class: "border rounded-circle" %>
+          <% else %>
+            <div class="border rounded-circle d-flex justify-content-center align-items-center" style="height: 150px; width: 150px;">
+              <p style="font-size: 20px;">no image</p>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th>ユーザーネーム</th>
+        <td><%= @user.name %></td>
+      </tr>
+      <tr>
+        <th>メールアドレス</th>
+        <td><%= @user.email %></td>
+      </tr>
+    </table>
+  
+    <div class="d-flex justify-content-end pr-1">
+    <% if current_user.email != 'guest@guest' %>
+      <%= link_to "編集する", information_edit_path, class: "btn btn-primary", style: "width: 300px;" %>
+    <% end %>
+    </div>
+  
+    <div class="mt-5 mb-5">
+      <h2>お気に入りの3冊</h2>
+      
+      <table class="table">
+    
+        <% @favorite_books.each do |favorite_book| %>
+          <tr>
+            <td>
+              <%= link_to favorite_book.book.get_book_date(favorite_book.book.isbn).title, book_path(favorite_book.book.isbn) %>
+              <%= link_to "お気に入りの本から解除する", favorite_book_path(favorite_book.book_id, delete_sort: 0), method: :delete, class: "btn btn-danger" %>
+            </td>
+          </tr>
+          <% end %>
+    
+      </table>
+    
+      <div class="d-flex justify-content-end pr-1">
+        <%= link_to "本を探す", books_search_path, class: "btn btn-secondary", style: "width: 300px;" %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
