@@ -1,23 +1,23 @@
-<div class="row">
-  <div class="col-9">
+<div class="row justify-content-center">
+  <div class="col-11 col-md-8">
     <h2 class="text-center"><%= @user.name %> さんのレビュー</h2>
-    
+
     <%if @reviews.present? %>
-    
+
       <% @reviews.each do |review| %>
         <div class="shadow rounded m-3 p-5">
           <h4><%= review.get_book_date(review.book.isbn).title %></h4>
-    
+
           <% if review.body.length > 50 %>
             <p><%= review.body.truncate(50) %></p>
           <% else %>
             <p><%= review.body %></p>
           <% end %>
-    
+
           <p class="text-right"><%= link_to 'more', review_path(review.id), class: "pr-3 pl-3 border text-dark rounded" %></p>
         </div>
       <% end %>
-      
+
     <% else %>
       <div class="m-3 p-5">
         <h4 class="text-center">まだレビューがありません</h4>
@@ -26,16 +26,18 @@
   </div>
 
 
-  <div class="col-3">
-    <% if @user.image.attached? %>
-      <%= image_tag @user.get_image(100,100), class: "rounded-circle" %>
-    <% else %>
-      <p>no image</p>
-    <% end %>
+  <div class=" col-11 col-md-3">
+    <div class="d-flex">
+      <% if @user.image.attached? %>
+        <%= image_tag @user.get_image(100,100), class: "rounded-circle" %>
+      <% else %>
+        <div class="border border-dark rounded-circle" style="height: 100px; width: 100px;"></div>
+      <% end %>
   
-    <h3><%= @user.name %></h3>
+      <h3><%= @user.name %></h3>
+    </div>
     
-    <table>
+    <table class="mt-2">
       <tr>
         <td>0</td>
         <td>0</td>
@@ -47,10 +49,10 @@
         <th><p>読みたい</p></th>
       </tr>
     </table>
-  
+
     <table>
       <th><h4>お気に入りの3冊</h4></th>
-  
+
       <% @favorite_books.each do |book| %>
       <tr>
         <td>
@@ -59,7 +61,7 @@
       </tr>
       <% end %>
     </table>
-  
+
     <% if current_user  == @user %>
       <p><%= link_to "会員情報を確認する", information_path %></p>
     <% end %>
