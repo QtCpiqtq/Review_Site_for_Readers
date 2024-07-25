@@ -1,2 +1,33 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<h1>会員詳細</h1>
+<table>
+  <tr>
+    <td>会員ID</td>
+    <td><%= @user.id %></td>
+  </tr>
+  <tr>
+    <td>ユーザーイメージ</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>ユーザーネーム</td>
+    <td><%= @user.name %></td>
+  </tr>
+  <tr>
+    <td>メールアドレス</td></td>
+    <td><%= @user.email %></td>
+  </tr>
+  <tr>
+    <td>ステータス</td>
+    <td><%= @user.is_active %></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td>投稿数</td>
+    <td><%= @user.reviews.count %></td>
+    <td>投稿一覧を見る</td>
+  </tr>
+</table>
+
+<%= link_to "編集する", edit_user_path(@user.id) %>

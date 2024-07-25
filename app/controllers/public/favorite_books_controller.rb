@@ -1,4 +1,6 @@
 class Public::FavoriteBooksController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     book = Book.find_or_create_by(isbn: params[:isbn])
     @favorite_book = current_user.favorite_books.find_or_initialize_by(book_id: book.id)

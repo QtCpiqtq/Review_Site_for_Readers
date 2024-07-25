@@ -1,4 +1,6 @@
 class Public::ReviewsController < ApplicationController
+  before_action :authenticate_user!
+  
   def show
     @review = Review.find(params[:id])
     @comment = Comment.new

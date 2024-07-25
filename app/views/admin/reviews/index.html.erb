@@ -1,2 +1,7 @@
-<h1>Admin::Reviews#index</h1>
-<p>Find me in app/views/admin/reviews/index.html.erb</p>
+<h1>レビュー一覧</h1>
+
+<% @reviews.each do |review| %>
+  <%= review.user.name %>
+  <%= review.body %>
+  <%= link_to "more", admin_review_path(review.id) %>
+<% end %>
