@@ -1,2 +1,12 @@
-<h1>Admin::Reviews#show</h1>
-<p>Find me in app/views/admin/reviews/show.html.erb</p>
+<h2>
+  <%= @review.user.name %> さんの
+  <%= @review.get_book_date(@review.book.isbn).title %> レビュー
+</h2>
+
+<%= @review.evolution %>
+<%= @review.evolution_before_type_cast %><br>
+<%= @review.feeling_after_reading %><br>
+
+<%= @review.body %><br>
+
+<%= link_to 'レビュー削除', review_path(@review.id), method: :delete, data: { confirm: 'このレビューを削除しますか?' } %>

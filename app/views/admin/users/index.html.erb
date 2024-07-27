@@ -1,17 +1,23 @@
-<h1>ユーザー一覧</h1>
+<div class="row justify-content-center">
+  <div class="col col-md-8">
 
-<table>
-  <tr>
-    <th>会員ID</th>
-    <th>ユーザーネーム</th>
-    <th>ステータス</th>
-  </tr>
+    <h4 class="mb-3">ユーザー一覧</h4>
 
-  <% @users.each do |user| %>
-    <tr>
-      <td><%= user.id %></td>
-      <td><%= link_to user.name, user_path(user.id) %></td>
-      <td><%= user.is_active %></td>
-    </tr>
-  <% end %>
-</table>
+    <table class="table border-bottom m-1">
+      <tr class="table-secondary">
+        <th>会員ID</th>
+        <th>ユーザーネーム</th>
+        <th>ステータス</th>
+      </tr>
+
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= link_to user.name, user_path(user.id), class: "text-dark" %></td>
+          <td><%= user.is_active %></td>
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>

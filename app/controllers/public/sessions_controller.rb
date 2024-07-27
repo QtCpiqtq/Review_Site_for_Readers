@@ -35,7 +35,7 @@ class Public::SessionsController < Devise::SessionsController
     user = User.find_by(email: params[:user][:email])
     return if user.nil?
     return unless user.valid_password?(params[:user][:password])
-    return if user.is_active == true
+    return if user.is_active == "有効"
     redirect_to new_user_registration_path
   end
   

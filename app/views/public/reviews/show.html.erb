@@ -1,31 +1,61 @@
-<% book_date = @review.get_book_date(@review.book.isbn) %>
+<div class="row justify-content-center">
+  <div class="col col-md-8">
+    <h2 class="text-center mb-4">
+      <%= link_to @review.user.name, mypage_path(@review.user.id), class: "text-dark" %> さんの
+      <%= link_to @review.get_book_date(@review.book.isbn).title, book_path(@review.book.isbn), class: "text-dark" %> レビュー
+    </h2>
+  </div>
+</div>
 
-<h2>
-  <%= link_to @review.user.name, mypage_path(@review.user.id) %>さんの
-  <%= link_to book_date.title, book_path(@review.book.isbn) %>のレビュー
-</h2>
-<%= @review.evolution %>
-<%= @review.evolution_before_type_cast %><br>
-<%= @review.feeling_after_reading %><br>
+<div class="row justify-content-center">
+  <div class="col-md-4"></div>
+  <div class="col-12 col-md-2">
+    <h2><%= @review.feeling_after_reading %></h2>
+  </div>
+  <div class="col-12 col-md-2">
+    <h1 class="text-warning"><%= @review.evolution %></h1>
+  </div>
+</div>
 
-<%= @review.body %><br>
+<div class="row justify-content-center">
+  <div class="col col-md-8">
 
-<% if @review.user == current_user %>
-  <%= link_to 'レビュー削除', review_path(@review.id), method: :delete, data: { confirm: 'このレビューを削除しますか?' } %>
-<% end %>
+    <div class="mt-2 mb-2 mr-1 ml-1">
+      <p class="lh-sm"><%= @review.body %></p>
 
+      <div class="d-flex justify-content-end">
+        <% if @review.user == current_user %>
+          <%= link_to 'レビュー削除', review_path(@review.id), method: :delete, data: { confirm: 'このレビューを削除しますか?' }, class: "btn btn-outline-secondary" %>
+        <% end %>
+      </div>
+    </div>
 
-<h3>みんなのコメント</h3>
+  </div>
+</div>
 
-<%= form_with model: @comment, url: review_comments_path(@review.id), method: :post do |f| %>
-  <%= f.text_field :body %>
-  <%= f.submit 'コメントする' %>
-<% end %>
+<div class="row justify-content-center">
+  <div class="col col-md-8">
 
-<% @comments.each do |comment| %>
-  <p><%= link_to comment.user.name, mypage_path(comment.user_id) %></p>
-  <p><%= comment.body %></p>
-  <% if comment.user == current_user %>
-    <p><%= link_to 'コメント削除', review_comment_path(comment.id), method: :delete %></p>
-  <% end %>
-<% end %>
+    <div class="m-1">
+      <h3 class="mt-4">みんなのコメント</h3>
+
+      <%= form_with model: @comment, url: review_comments_path(@review.id), method: :post do |f| %>
+        <div class="input-group pl-1 mb-2">
+          <%= f.text_field :body, class: "form-control" %>
+          <span class="input-group-btn">
+            <%= f.submit 'コメントする', class: "btn btn-outline-primary" %>
+          </span>
+        </div>
+      <% end %>
+
+      <% @comments.each do |comment| %>
+        <p><%= link_to comment.user.name, mypage_path(comment.user_id) %></p>
+        <p><%= comment.body %></p>
+        <% if comment.user == current_user %>
+          <p><%= link_to 'コメント削除', review_comment_path(comment.id), method: :delete %></p>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+</div>

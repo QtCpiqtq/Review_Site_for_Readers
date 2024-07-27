@@ -25,4 +25,8 @@ class User < ApplicationRecord
     self.wish_lists.pluck(:book_id).include?(book_id)
   end
   
+   enum is_active: {
+    "有効": true,
+    "無効": false
+   }
 end

@@ -1,33 +1,52 @@
-<h1>会員詳細</h1>
-<table>
-  <tr>
-    <td>会員ID</td>
-    <td><%= @user.id %></td>
-  </tr>
-  <tr>
-    <td>ユーザーイメージ</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>ユーザーネーム</td>
-    <td><%= @user.name %></td>
-  </tr>
-  <tr>
-    <td>メールアドレス</td></td>
-    <td><%= @user.email %></td>
-  </tr>
-  <tr>
-    <td>ステータス</td>
-    <td><%= @user.is_active %></td>
-  </tr>
-</table>
+<div class="row justify-content-center">
+  <div class="col col-md-8">
 
-<table>
-  <tr>
-    <td>投稿数</td>
-    <td><%= @user.reviews.count %></td>
-    <td>投稿一覧を見る</td>
-  </tr>
-</table>
+    <h4 class="mb-3">会員詳細</h4>
+    
+    <div class="m-2">
+      <table class="table">
+        <tr>
+          <td>会員ID</td>
+          <td><%= @user.id %></td>
+        </tr>
+        <tr>
+          <td>ユーザーイメージ</td>
+          <td>
+            <% if @user.image.attached? %>
+              <%= image_tag @user.get_image(150,150), class: "border rounded-circle" %>
+            <% else %>
+              no image
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>ユーザーネーム</td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td>メールアドレス</td></td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td>ステータス</td>
+          <td>
+            <%= @user.is_active %><br>
+            <% if @user.is_active == "有効" %>
+              <%= link_to "無効にする", user_path(@user.id), method: :put, data: { confirm: "[確認]このユーザーを無効にしますか?" }, class: "btn btn-outline-danger" %>
+            <% elsif @user.is_active == "無効" %>
+              <%= link_to "有効にする", user_path(@user.id), method: :put, class: "btn btn-outline-secondary" %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+  
+      <h5>投稿数 <%= @user.reviews.count %></h5>
+        <%= form_with url: admin_reviews_path, method: :get, local: true do |f| %>
+          <%= f.hidden_field :search_reviews_id, value: @user.id %>
+          <%= f.submit "レビュー一覧を見る", class: "btn btn-light" %>
+        <% end %>
+    </div>
 
-<%= link_to "編集する", edit_user_path(@user.id) %>
+
+  </div>
+</div>
