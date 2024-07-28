@@ -1,7 +1,28 @@
-<h2>レビュー一覧</h2>
+<div class="row justify-content-center">
+  <div class="col col-md-8">
 
-<% @reviews.each do |review| %>
-  <%= review.user.name %>
-  <%= review.body %>
-  <%= link_to "more", admin_review_path(review.id) %>
-<% end %>
+    <h4>レビュー一覧</h4>
+
+    <% @reviews.each do |review| %>
+      <p class="mt-3 mr-1 ml-2">no.<%= review.id %></p>
+      <table class="table border mr-1 ml-1 mb-3">
+      <tr>
+        <td>
+          <%= link_to review.user.name, user_path(review.user_id), class: "text-dark" %> さんの
+          <%= review.book.get_book_date(review.book.isbn).title %> レビュー
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= review.body %>
+          <div class="d-flex justify-content-end">
+            <%= link_to "more", admin_review_path(review.id), class: "text-dark border pr-4 pl-4" %>
+          </div>
+        </td>
+      </tr>
+      </table>
+
+    <% end %>
+
+  </div>
+</div>

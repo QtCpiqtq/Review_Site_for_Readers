@@ -1,20 +1,22 @@
 <div class="row justify-content-center">
-  <div class="col-11 col-md-8">
+  <div class="col-11 col-md-7">
     <h2 class="text-center"><%= @user.name %> さんのレビュー</h2>
 
     <%if @reviews.present? %>
 
       <% @reviews.each do |review| %>
-        <div class="shadow rounded m-3 p-5">
-          <h4><%= review.get_book_date(review.book.isbn).title %></h4>
+        <div class="border p-3 mt-3">
+          <h4><%= review.get_book_date(review.book.isbn).title %> のレビュー</h4>
 
-          <% if review.body.length > 50 %>
-            <p><%= review.body.truncate(50) %></p>
+          <% if review.body.length > 200 %>
+            <%= review.body.truncate(200) %>
           <% else %>
-            <p><%= review.body %></p>
+            <%= review.body %>
           <% end %>
 
-          <p class="text-right"><%= link_to 'more', review_path(review.id), class: "pr-3 pl-3 border text-dark rounded" %></p>
+          <div class="d-flex justify-content-end">
+            <%= link_to 'more', review_path(review.id), class: "text-dark border pr-4 pl-4" %>
+          </div>
         </div>
       <% end %>
 
@@ -29,9 +31,9 @@
   <div class=" col-11 col-md-3">
     <div class="d-flex">
       <% if @user.image.attached? %>
-        <%= image_tag @user.get_image(100,100), class: "rounded-circle" %>
+        <%= image_tag @user.get_image(150,150), class: "border rounded-circle" %>
       <% else %>
-        <div class="border border-dark rounded-circle" style="height: 100px; width: 100px;"></div>
+        <div class="border rounded-circle bg-primary" style="height: 150px; width: 150px;"></div>
       <% end %>
   
       <h3><%= @user.name %></h3>

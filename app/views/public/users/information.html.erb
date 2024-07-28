@@ -10,9 +10,7 @@
           <% if @user.image.attached? %>
             <%= image_tag @user.get_image(150,150), class: "border rounded-circle" %>
           <% else %>
-            <div class="border rounded-circle d-flex justify-content-center align-items-center" style="height: 150px; width: 150px;">
-              <p style="font-size: 20px;">no image</p>
-            </div>
+            <div class="border rounded-circle bg-primary" style="height: 150px; width: 150px;"></div>
           <% end %>
         </td>
       </tr>

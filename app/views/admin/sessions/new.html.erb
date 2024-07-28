@@ -5,12 +5,12 @@
 
     <%= form_with model: @admin, url: admin_session_path do |f| %>
       <div class="field">
-        <%= f.label :email %><br />
+        <%= f.label :"メールアドレス" %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
       </div>
 
       <div class="field">
-        <%= f.label :password %><br />
+        <%= f.label :"パスワード" %><br />
         <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
       </div>
 
@@ -22,7 +22,7 @@
       <% end %>
 
       <div class="actions mt-2">
-        <%= f.submit "ログイン", class: "btn btn-outline-secondary btn-block", style: "height: 50px" %>
+        <%= f.submit "ログイン", class: "btn btn-secondary btn-block", style: "height: 50px" %>
       </div>
     <% end %>
 
