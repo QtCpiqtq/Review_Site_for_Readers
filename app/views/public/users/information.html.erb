@@ -1,16 +1,16 @@
 <div class="row justify-content-center">
   <div class="col col-md-8">
-    
+
     <h2>会員情報</h2>
-  
-    <table class="table table-bordered">
+
+    <table class="table table-bordered m-1">
       <tr>
         <th>プロフィール画像</th>
         <td>
           <% if @user.image.attached? %>
             <%= image_tag @user.get_image(150,150), class: "border rounded-circle" %>
           <% else %>
-            <div class="border rounded-circle bg-primary" style="height: 150px; width: 150px;"></div>
+            <div class="border border-dark rounded-circle" style="height: 150px; width: 150px;"></div>
           <% end %>
         </td>
       </tr>
@@ -23,30 +23,40 @@
         <td><%= @user.email %></td>
       </tr>
     </table>
-  
+
     <div class="d-flex justify-content-end pr-1">
     <% if current_user.email != 'guest@guest' %>
-      <%= link_to "編集する", information_edit_path, class: "btn btn-primary", style: "width: 300px;" %>
+      <%= link_to "編集する", information_edit_path, class: "btn btn-info mt-2", style: "width: 300px;" %>
     <% end %>
     </div>
-  
+
     <div class="mt-5 mb-5">
       <h2>お気に入りの3冊</h2>
-      
-      <table class="table">
-    
-        <% @favorite_books.each do |favorite_book| %>
-          <tr>
-            <td>
-              <%= link_to favorite_book.book.get_book_date(favorite_book.book.isbn).title, book_path(favorite_book.book.isbn) %>
-              <%= link_to "お気に入りの本から解除する", favorite_book_path(favorite_book.book_id, delete_sort: 0), method: :delete, class: "btn btn-danger" %>
-            </td>
-          </tr>
+
+      <table class="table border-bottom m-1">
+
+        <% if @favorite_books.present? %>
+          <% @favorite_books.each do |favorite_book| %>
+            <tr>
+              <th>
+                <%= link_to favorite_book.book.get_book_date(favorite_book.book.isbn).title, book_path(favorite_book.book.isbn), class: "text-dark" %>
+              </th>
+              <td>
+                <div class="d-flex justify-content-end">
+                  <%= link_to "お気に入りの本から解除する", favorite_book_path(favorite_book.book_id, delete_sort: 0), method: :delete, class: "btn btn-danger" %>
+                </div>
+              </td>
+            </tr>
           <% end %>
-    
+        <% else %>
+          <tr>
+            <th>お気に入りの本がありません。</th>
+          </tr>
+        <% end %>
+
       </table>
-    
-      <div class="d-flex justify-content-end pr-1">
+
+      <div class="d-flex justify-content-end mt-2 pr-1">
         <%= link_to "本を探す", books_search_path, class: "btn btn-secondary", style: "width: 300px;" %>
       </div>
     </div>

@@ -32,9 +32,9 @@
           <td>
             <%= @user.is_active %><br>
             <% if @user.is_active == "有効" %>
-              <%= link_to "無効にする", user_path(@user.id), method: :put, data: { confirm: "[確認]このユーザーを無効にしますか?" }, class: "btn btn-outline-danger" %>
+              <%= link_to "無効にする", admin_user_update_path(@user.id), method: :put, data: { confirm: "[確認]このユーザーを無効にしますか?" }, class: "btn btn-outline-danger" %>
             <% elsif @user.is_active == "無効" %>
-              <%= link_to "有効にする", user_path(@user.id), method: :put, class: "btn btn-outline-secondary" %>
+              <%= link_to "有効にする", admin_user_update_path(@user.id), method: :put, class: "btn btn-outline-secondary" %>
             <% end %>
           </td>
         </tr>

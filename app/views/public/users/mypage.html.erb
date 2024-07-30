@@ -1,11 +1,11 @@
 <div class="row justify-content-center">
   <div class="col-11 col-md-7">
-    <h2 class="text-center"><%= @user.name %> さんのレビュー</h2>
+    <h2 class="text-center mb-5"><%= @user.name %> さんのレビュー</h2>
 
     <%if @reviews.present? %>
 
       <% @reviews.each do |review| %>
-        <div class="border p-3 mt-3">
+        <div class="border p-3 mb-3 ">
           <h4><%= review.get_book_date(review.book.isbn).title %> のレビュー</h4>
 
           <% if review.body.length > 200 %>
@@ -27,23 +27,29 @@
     <% end %>
   </div>
 
-
-  <div class=" col-11 col-md-3">
-    <div class="d-flex">
-      <% if @user.image.attached? %>
-        <%= image_tag @user.get_image(150,150), class: "border rounded-circle" %>
-      <% else %>
-        <div class="border rounded-circle bg-primary" style="height: 150px; width: 150px;"></div>
-      <% end %>
-  
-      <h3><%= @user.name %></h3>
-    </div>
-    
-    <table class="mt-2">
+  <div class="col-11 col-md-3">
+    <table class="table table-borderless">
       <tr>
-        <td>0</td>
-        <td>0</td>
-        <td><%= link_to @wish_lists.count, wish_lists_index_path(@user.id) %></td>
+        <td>
+          <% if @user.image.attached? %>
+            <%= image_tag @user.get_image(150,150), class: "border rounded-circle" %>
+          <% else %>
+            <div class="border border-dark rounded-circle" style="height: 150px; width: 150px;"></div>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h3 class="ml-3"><%= @user.name %></h3>
+        </td>
+      </tr>
+    </table>
+
+    <table class="table table-borderless border-top border-bottom border-dark ml-1">
+      <tr>
+        <td class="text-center">0</td>
+        <td class="text-center">0</td>
+        <td class="text-center"><%= link_to @wish_lists.count, wish_lists_index_path(@user.id), class: "text-dark" %></td>
       </tr>
       <tr>
         <th><p>フォロー</p></th>
@@ -52,20 +58,29 @@
       </tr>
     </table>
 
-    <table>
-      <th><h4>お気に入りの3冊</h4></th>
-
-      <% @favorite_books.each do |book| %>
+    <table class="table table-bordered border-dark m-1">
       <tr>
-        <td>
-          <%= link_to book.get_book_date(book.isbn).title, book_path(book.isbn) %>
-        </td>
+        <th><h4 class="text-center">お気に入りの3冊</h4></th>
       </tr>
-      <% end %>
+        <% if @favorite_books.present? %>
+          <% @favorite_books.each do |book| %>
+            <tr>
+              <td>
+                <%= link_to book.get_book_date(book.isbn).title, book_path(book.isbn), class: "text-dark" %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <th class="text-center">お気に入りの本がありません。</th>
+          </tr>
+        <% end %>
     </table>
 
     <% if current_user  == @user %>
-      <p><%= link_to "会員情報を確認する", information_path %></p>
+      <div class="d-flex justify-content-end">
+        <%= link_to "会員情報を確認する", information_path, class: "btn btn-info mt-2 mb-3" %>
+      </div>
     <% end %>
   </div>
 </div>

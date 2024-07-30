@@ -2,7 +2,7 @@
   <div class="col col-md-8">
  
     <h4>
-      <%= link_to @review.user.name, user_path(@review.user_id), class: "text-dark" %> さんの
+      <%= link_to @review.user.name, admin_user_path(@review.user_id), class: "text-dark" %> さんの
       <%= @review.get_book_date(@review.book.isbn).title %> レビュー
     </h4>
     

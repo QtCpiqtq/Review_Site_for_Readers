@@ -13,7 +13,7 @@
       <% @users.each do |user| %>
         <tr>
           <td><%= user.id %></td>
-          <td><%= link_to user.name, user_path(user.id), class: "text-dark" %></td>
+          <td><%= link_to user.name, admin_user_path(user.id), class: "text-dark" %></td>
           <td><%= user.is_active %></td>
         </tr>
       <% end %>

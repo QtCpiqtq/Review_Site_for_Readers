@@ -41,7 +41,9 @@ Rails.application.routes.draw do
   scope module: :admin do
     get "admin_reviews", to: "reviews#index", as: "admin_reviews"
     get "admin_review/:id", to: "reviews#show", as: "admin_review"
-    resources :users, only: [:index, :show, :update]
+    get "admin_users", to: "users#index", as: "admin_users"
+    get "admin_users/:id", to: "users#show", as: "admin_user"
+    put "admin_users/:id", to: "users#update", as: "admin_user_update"
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

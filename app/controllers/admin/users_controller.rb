@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
-  
+
   def index
     @users = User.all
   end
@@ -8,7 +8,7 @@ class Admin::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
-  
+
   def update
     user = User.find(params[:id])
     if user.is_active == "有効"
@@ -16,6 +16,6 @@ class Admin::UsersController < ApplicationController
     elsif user.is_active == "無効"
       user.update(is_active: "有効")
     end
-    redirect_to user_path(user.id)
+    redirect_to admin_user_path(user.id)
   end
 end
