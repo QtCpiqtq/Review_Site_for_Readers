@@ -2,6 +2,7 @@
   <div class="col-11 col-md-6">
 
     <h2 class="mt-3"><%= @book.title %></h2>
+    <p><%= @book.author %></p>
 
   </div>
 
@@ -46,9 +47,9 @@
       <% Book.get_reviews(@book.isbn).each do |review| %>
 
         <% if review.user.image.attached? %>
-          <%= image_tag review.user.get_image(100,100) %><br>
+          <%= image_tag review.user.get_image(100,100), class: "border rounded-circle" %>
         <% else %>
-          <p>no image</p>
+          <div class="border border-dark rounded-circle" style="height: 100px; width: 100px;"></div>
         <% end %>
 
         <%= review.user.name %><br>

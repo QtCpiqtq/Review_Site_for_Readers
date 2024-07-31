@@ -25,7 +25,7 @@
 
       <div class="d-flex justify-content-end">
         <% if @review.user == current_user %>
-          <%= link_to 'レビュー削除', review_path(@review.id), method: :delete, data: { confirm: 'このレビューを削除しますか?' }, class: "btn btn-outline-secondary" %>
+          <%= link_to 'レビュー削除', review_path(@review.id), method: :delete, data: { confirm: 'このレビューを削除しますか?' }, class: "btn btn-outline-danger" %>
         <% end %>
       </div>
     </div>
@@ -43,12 +43,17 @@
         <div class="input-group pl-1 mb-2">
           <%= f.text_field :body, class: "form-control" %>
           <span class="input-group-btn">
-            <%= f.submit 'コメントする', class: "btn btn-outline-primary" %>
+            <%= f.submit 'コメントする', class: "btn btn-outline-success" %>
           </span>
         </div>
       <% end %>
 
       <% @comments.each do |comment| %>
+        <% if comment.user.image.attached? %>
+          <%= image_tag comment.user.get_image(100,100), class: "border rounded-circle" %>
+        <% else %>
+          <div class="border border-dark rounded-circle" style="height: 100px; width: 100px;"></div>
+        <% end %>
         <p><%= link_to comment.user.name, mypage_path(comment.user_id) %></p>
         <p><%= comment.body %></p>
         <% if comment.user == current_user %>
