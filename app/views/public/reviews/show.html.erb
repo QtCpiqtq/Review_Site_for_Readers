@@ -23,6 +23,19 @@
     <div class="mt-2 mb-2 mr-1 ml-1">
       <p class="lh-sm"><%= @review.body %></p>
 
+      <div class="d-flex justify-content-end m-1">
+        <% if @review.good_by?(current_user) %>
+          <%= link_to good_path(@review), method: :delete do %>
+            <h4 class="text-danger"><i class="fa-solid fa-heart"></i></h4>
+          <% end %>
+        <% else %>
+          <%= link_to goods_path(@review), method: :post do %>
+            <h4 class="text-danger"><i class="fa-regular fa-heart"></i></h4>
+          <% end %>
+        <% end %>
+        <h4 class="ml-3"><%= @review.goods.count %> いいね</h4>
+      </div>
+
       <div class="d-flex justify-content-end">
         <% if @review.user == current_user %>
           <%= link_to 'レビュー削除', review_path(@review.id), method: :delete, data: { confirm: 'このレビューを削除しますか?' }, class: "btn btn-outline-danger" %>
@@ -48,18 +61,26 @@
         </div>
       <% end %>
 
-      <% @comments.each do |comment| %>
-        <% if comment.user.image.attached? %>
-          <%= image_tag comment.user.get_image(100,100), class: "border rounded-circle" %>
-        <% else %>
-          <div class="border border-dark rounded-circle" style="height: 100px; width: 100px;"></div>
+      <table class="table border-bottom mt-3">
+        <% @comments.each do |comment| %>
+        <tr>
+          <td style="width: 75px;">
+            <% if comment.user.image.attached? %>
+              <%= image_tag comment.user.get_image(75,75), class: "border rounded-circle" %>
+            <% else %>
+              <div class="border border-dark rounded-circle" style="height: 75px; width: 75px;"></div>
+            <% end %>
+          </td>
+          <td>
+            <p><%= link_to comment.user.name, mypage_path(comment.user_id), class: "text-dark" %></p>
+            <p><%= comment.body %></p>
+            <% if comment.user == current_user %>
+              <p class="text-right"><%= link_to 'コメント削除', review_comment_path(comment.id), method: :delete, class: "btn border" %></p>
+            <% end %>
         <% end %>
-        <p><%= link_to comment.user.name, mypage_path(comment.user_id) %></p>
-        <p><%= comment.body %></p>
-        <% if comment.user == current_user %>
-          <p><%= link_to 'コメント削除', review_comment_path(comment.id), method: :delete %></p>
-        <% end %>
-      <% end %>
+          </td>
+        </tr>
+      </table>
     </div>
 
   </div>

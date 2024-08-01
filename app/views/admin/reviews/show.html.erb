@@ -1,18 +1,46 @@
 <div class="row justify-content-center">
   <div class="col col-md-8">
- 
-    <h4>
-      <%= link_to @review.user.name, admin_user_path(@review.user_id), class: "text-dark" %> さんの
-      <%= @review.get_book_date(@review.book.isbn).title %> レビュー
-    </h4>
-    
-    <%= @review.evolution %>
-    <%= @review.evolution_before_type_cast %><br>
-    <%= @review.feeling_after_reading %><br>
-    
-    <%= @review.body %><br>
-    
-    <%= link_to 'レビュー削除', review_path(@review.id), method: :delete, data: { confirm: 'このレビューを削除しますか?' } %>
+
+    <div class="m-1">
+      <h4 class="text-center mb-3">
+        <%= link_to @review.user.name, admin_user_path(@review.user_id), class: "text-dark" %> さんの
+        <%= @review.get_book_date(@review.book.isbn).title %> レビュー
+      </h4>
+
+      <p><b>評価　 </b>: <%= @review.evolution %></p>
+      <P><b>読後感 </b>: <%= @review.feeling_after_reading %></P>
+      <p><%= @review.body %></p>
+      <p><%= @review.comments.count %> いいね</p>
+    </div>
+
+    <div class="m-1">
+      <p><b>コメント</b></p>
+      <% if @review.comments.present? %>
+        <table class="table border-bottom">
+          <% @review.comments.each do |comment| %>
+          <tr>
+            <td style="width: 75px;">
+              <% if comment.user.image.attached? %>
+                <%= image_tag comment.user.get_image(75,75), class: "border rounded-circle" %>
+              <% else %>
+                <div class="border border-dark rounded-circle" style="height: 75px; width: 75px;"></div>
+              <% end %>
+            </td>
+            <td>
+              <p>
+                <%= link_to admin_user_path(comment.user_id), class: "text-dark" do %>
+                  <%= comment.user.name %>
+                <% end %>
+              </p>
+              <p><%= comment.body %></p>
+            </td>
+          </tr>
+        <% end %>
+        </table>
+      <% else %>
+        <p>コメントはありません</p>
+      <% end %>
+    </div>
 
   </div>
 </div>

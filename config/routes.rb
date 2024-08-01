@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     post 'reviews/:review_id/comments' => 'comments#create', as: 'review_comments'
     delete 'reviews/comments/:id' => 'comments#destroy', as: 'review_comment'
     
+    post "reviews/:review_id/goods", to: "goods#create", as: "goods"
+    delete "reviews/:review_id/goods", to: "goods#destroy", as: "good"
+    
     resources :favorite_books, only: [:create, :destroy]
     
     resources :wish_lists, only: [:create, :destroy]

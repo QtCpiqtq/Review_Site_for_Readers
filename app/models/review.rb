@@ -2,6 +2,7 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :book
   has_many :comments, dependent: :destroy
+  has_many :goods, dependent: :destroy
   
   validates :evolution, presence: true
   validates :body, presence: true
@@ -32,5 +33,9 @@ class Review < ApplicationRecord
 
   def get_book_date(isbn)
     RakutenWebService::Books::Book.search(isbn: isbn).first
+  end
+  
+  def good_by?(user)
+    goods.exists?(user_id: user.id)
   end
 end
