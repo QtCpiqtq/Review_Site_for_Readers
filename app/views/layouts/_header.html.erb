@@ -1,0 +1,64 @@
+ <header class="bg-dark mb-5">
+
+  <nav class="navbar navbar-expand-md">
+    <div class="container-fluid">
+      <h1 class="navbar-brand"><%= link_to "Review Site for Readers", root_path, class: "text-light" %></h1>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars text-light"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto p-3">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "トップページ", root_path, class: "nav_link text-light mr-3" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "アバウトページ", about_path, class: "nav_link text-light mr-3" %>
+          </li>
+          <li>
+            <%= link_to "マイページ", mypage_path(current_user.id), class: "nav_link text-light mr-3" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "本を探す", books_search_path, class: "nav_link text-light mr-3" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav_link text-light" %>
+          </li>
+
+        <% elsif admin_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "レビュー一覧", admin_reviews_path, class: "nav_link text-light mr-3" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ユーザー一覧", admin_users_path, class: "nav_link text-light mr-3" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav_link text-light mr-3" %>
+          </li>
+
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "新規登録", new_user_registration_path, class: "nav_link text-light mr-3" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ログイン", new_user_session_path, class: "nav_link text-light mr-3" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "トップページ", root_path, class: "nav_link text-light mr-3" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "アバウトページ", about_path, class: "nav_link text-light mr-3" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "本を探す", books_search_path, class: "nav_link text-light" %>
+          </li>
+        </div>
+      <% end %>
+      </ul>
+    </div>
+  </nav>
+
+</header>
+

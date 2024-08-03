@@ -1,0 +1,13 @@
+<div class="row justify-content-center">
+  <div class="col col-md-8">
+
+   <h2 class="text-center mb-3"><%= @user.name %> さんのフォロワー一覧</h2>
+   
+  <% if @followers.present? %>
+    <%= render "index", users: @followers %>
+  <% else %>
+    <p>ユーザーはいません</p>
+  <% end %>
+
+  </div>
+</div>
