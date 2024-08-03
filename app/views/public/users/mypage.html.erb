@@ -43,12 +43,31 @@
           <h3 class="ml-3"><%= @user.name %></h3>
         </td>
       </tr>
+      <% if current_user != @user %>
+        <tr>
+          <td>
+            <% if current_user.following?(@user) %>
+              <%= link_to "フォロー中", relationship_path(@user.id), method: :delete, class: "btn btn-block btn-success" %>
+            <% else %>
+              <%= link_to "フォローする", relationships_path(@user.id), method: :post, class: "btn btn-block btn-outline-success" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
     </table>
 
     <table class="table table-borderless border-top border-bottom border-dark ml-1">
       <tr>
-        <td class="text-center">0</td>
-        <td class="text-center">0</td>
+        <td class="text-center">
+          <%= link_to followings_path(@user.id), class: "text-dark" do %>
+            <%= @user.followings.count %>
+          <% end %>
+        </td>
+        <td class="text-center">
+          <%= link_to followers_path(@user.id), class: "text-dark" do %>
+            <%= @user.followers.count %>
+          <% end %>
+        </td>
         <td class="text-center"><%= link_to @wish_lists.count, wish_lists_index_path(@user.id), class: "text-dark" %></td>
       </tr>
       <tr>

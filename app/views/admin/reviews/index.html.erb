@@ -15,7 +15,11 @@
         </tr>
         <tr>
           <td>
-            <%= review.body %>
+            <% if review.body.length > 200 %>
+              <%= review.body.truncate(200) %>
+            <% else %>
+              <%= review.body %>
+            <% end %>
             <div class="d-flex justify-content-end">
               <%= link_to "more", admin_review_path(review.id), class: "btn border" %>
             </div>

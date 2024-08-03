@@ -1,13 +1,17 @@
 <div class="row justify-content-center">
   <div class="col col-md-8">
 
-   <h2 class="text-center mb-3"><%= @user.name %>さんの読みたい本</h2>
+   <h2 class="text-center mb-3"><%= @user.name %> さんの読みたい本一覧</h2>
 
     <table class="table border-bottom">
       <% @wish_lists.each do |wish_list| %>
         <tr>
           <td>
-            <h3><%= wish_list.get_book_date(wish_list.book.isbn).title %></h3>
+            <h3>
+              <%= link_to book_path(wish_list.book.isbn), class: "text-dark" do %>
+                <%= wish_list.get_book_date(wish_list.book.isbn).title %>
+              <% end %>
+            </h3>
             <% if current_user == @user %>
               <h4><%= link_to '読みたい本から解除する', wish_list_path(wish_list.book_id, delete_sort: 0), method: :delete, class: "text-danger" %></h4>
             <% end %>

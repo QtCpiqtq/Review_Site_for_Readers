@@ -13,6 +13,10 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :wish_lists, dependent: :destroy
   has_many :goods, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followings, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
   
   def get_image(width, height)
     image.variant(resize_to_limit: [width, height]).processed
@@ -24,6 +28,18 @@ class User < ApplicationRecord
   
   def added_to_wish_lists?(book_id)
     self.wish_lists.pluck(:book_id).include?(book_id)
+  end
+  
+  def follow(user)
+    active_relationships.create(followed_id: user.id)
+  end
+  
+  def unfollow(user)
+    active_relationships.find_by(followed_id: user.id).destroy
+  end
+  
+  def following?(user)
+    followings.include?(user)
   end
   
    enum is_active: {

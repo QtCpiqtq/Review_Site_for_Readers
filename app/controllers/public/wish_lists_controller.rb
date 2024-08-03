@@ -18,7 +18,7 @@ class Public::WishListsController < ApplicationController
 
   def index
     @user = User.find(params[:id])
-    @wish_lists = @user.wish_lists.all
+    @wish_lists = @user.wish_lists.all.order(created_at: :desc)
   end
 
   private

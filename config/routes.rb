@@ -1,22 +1,22 @@
 Rails.application.routes.draw do
   root to: "homes#top"
-  get 'about' => "homes#about"
+  get "about", to: "homes#about"
   
   devise_for :users,
   skip: [:passwords], controllers: {
-    registrations: 'public/registrations',
-    sessions: 'public/sessions'
+    registrations: "public/registrations",
+    sessions: "public/sessions"
   }
   
   scope module: :public do
-    get 'mypage/:id' => 'users#mypage', as: 'mypage'
-    get 'information' => 'users#information'
-    get 'information/edit' => 'users#edit'
-    patch 'information/edit' => 'users#update'
-    get 'unsubscribe' => 'users#unsubscribe'
-    patch 'withdraw' => 'users#withdraw'
-    delete 'image_destroy' => 'users#destroy'
-    post 'guest_login', to: 'users#guest_login'
+    get "mypage/:id", to: "users#mypage", as: "mypage"
+    get "information", to: "users#information"
+    get "information/edit", to: "users#edit"
+    patch "information/edit", to: "users#update"
+    get "unsubscribe", to: "users#unsubscribe"
+    patch "withdraw", to: "users#withdraw"
+    delete "image_destroy", to: "users#destroy"
+    post "guest_login", to: "users#guest_login"
     
     resources :books, only: [:index]
     get 'books/search' => 'books#search'
@@ -35,6 +35,11 @@ Rails.application.routes.draw do
     
     resources :wish_lists, only: [:create, :destroy]
     get 'mypage/:id/wish_lists/index' => 'wish_lists#index', as: 'wish_lists_index'
+    
+    post "mypage/:id/relationships", to: "relationships#create", as: "relationships"
+    delete "mypage/relationships/:id", to: "relationships#destroy", as: "relationship"
+    get "mypage/:id/followings" => "relationships#followings", as: "followings"
+  	get "mypage/:id/followers" => "relationships#followers", as: "followers"
   end
   
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
@@ -44,6 +49,8 @@ Rails.application.routes.draw do
   scope module: :admin do
     get "admin_reviews", to: "reviews#index", as: "admin_reviews"
     get "admin_review/:id", to: "reviews#show", as: "admin_review"
+    delete "admin_review/:id", to: "reviews#destroy", as: "admin_review_destroy"
+    delete "admin_comment/:id", to: "comments#destroy", as: "admin_comment_destroy"
     get "admin_users", to: "users#index", as: "admin_users"
     get "admin_users/:id", to: "users#show", as: "admin_user"
     put "admin_users/:id", to: "users#update", as: "admin_user_update"

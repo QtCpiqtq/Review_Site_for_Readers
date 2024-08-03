@@ -41,28 +41,41 @@
 <div class="row justify-content-center">
   <div class="col-11 col-md-9">
 
-    <h3>みんなのレビュー</h3>
+    <h3 class="mt-4">みんなのレビュー</h3>
 
     <%if Book.get_reviews(@book.isbn).present? %>
-      <% Book.get_reviews(@book.isbn).each do |review| %>
-
-        <% if review.user.image.attached? %>
-          <%= image_tag review.user.get_image(100,100), class: "border rounded-circle" %>
-        <% else %>
-          <div class="border border-dark rounded-circle" style="height: 100px; width: 100px;"></div>
+      
+      <table class="table border-bottom">
+        <% Book.get_reviews(@book.isbn).each do |review| %>
+          <tr>
+            <td style="width: 75px;">
+              <% if review.user.image.attached? %>
+                <%= image_tag review.user.get_image(75,75), class: "border rounded-circle" %>
+              <% else %>
+                <div class="border border-dark rounded-circle" style="height: 75px; width: 75px;"></div>
+              <% end %>
+            </td>
+            <td>
+              <p>
+                <%= link_to mypage_path(review.user_id), class: "text-dark" do %>
+                  <%= review.user.name %>
+                <% end %>
+              </p>
+              <p>
+                <% if review.body.length > 200 %>
+                  <%= review.body.truncate(200) %>
+                <% else %>
+                  <%= review.body %>
+                <% end %>
+              </p>
+                <div class="d-flex justify-content-end">
+                  <%= link_to "more", review_path(review.id), class: "btn border" %>
+                </div>
+              </p>
+            </td>
+          </tr>
         <% end %>
-
-        <%= review.user.name %><br>
-
-        <% if review.body.length > 50 %>
-          <%= review.body.truncate(50) %><br>
-        <% else %>
-          <%= review.body %><br>
-        <% end %>
-
-        <%= link_to 'more', review_path(review.id) %>
-
-      <% end %>
+      </table>
 
     <% else %>
         <h4>まだレビューがありません</h4>

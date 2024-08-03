@@ -1,6 +1,13 @@
 <div class="row justify-content-center">
-  <div class="col col-md-8">
-    <h2 class="text-center mb-4">
+  <div class="col-12 col-md-1">
+    <% if @review.user.image.attached? %>
+      <%= image_tag @review.user.get_image(100,100), class: "border rounded-circle" %>
+    <% else %>
+      <div class="border border-dark rounded-circle" style="height: 100px; width: 100px;"></div>
+    <% end %>
+  </div>
+  <div class="col-12 col-md-7">
+    <h2 class="mb-4">
       <%= link_to @review.user.name, mypage_path(@review.user.id), class: "text-dark" %> さんの
       <%= link_to @review.get_book_date(@review.book.isbn).title, book_path(@review.book.isbn), class: "text-dark" %> レビュー
     </h2>
@@ -13,7 +20,7 @@
     <h2><%= @review.feeling_after_reading %></h2>
   </div>
   <div class="col-12 col-md-2">
-    <h1 class="text-warning"><%= @review.evolution %></h1>
+    <h2 class="text-warning"><%= @review.evolution %></h2>
   </div>
 </div>
 
