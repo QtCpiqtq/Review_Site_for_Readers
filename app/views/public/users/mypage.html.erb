@@ -6,7 +6,7 @@
 
       <% @reviews.each do |review| %>
         <div class="border p-3 mb-3 ">
-          <h4><%= review.get_book_date(review.book.isbn).title %> のレビュー</h4>
+          <h4><%= review.book.get_book_title(review.book.isbn) %> のレビュー</h4>
 
           <% if review.body.length > 200 %>
             <%= review.body.truncate(200) %>
@@ -43,11 +43,11 @@
           <h3 class="ml-3"><%= @user.name %></h3>
         </td>
       </tr>
-      <% if current_user != @user %>
+      <% if current_user != @user && !@user.name.include?("(退会済みユーザー)") %>
         <tr>
           <td>
             <% if current_user.following?(@user) %>
-              <%= link_to "フォロー中", relationship_path(@user.id), method: :delete, class: "btn btn-block btn-success" %>
+              <%= link_to "フォロー中", relationship_path(@user.id, delete_sort: 0), method: :delete, class: "btn btn-block btn-success" %>
             <% else %>
               <%= link_to "フォローする", relationships_path(@user.id), method: :post, class: "btn btn-block btn-outline-success" %>
             <% end %>
@@ -85,7 +85,7 @@
           <% @favorite_books.each do |book| %>
             <tr>
               <td>
-                <%= link_to book.get_book_date(book.isbn).title, book_path(book.isbn), class: "text-dark" %>
+                <%= link_to book.get_book_title(book.isbn), book_path(book.isbn), class: "text-dark" %>
               </td>
             </tr>
           <% end %>

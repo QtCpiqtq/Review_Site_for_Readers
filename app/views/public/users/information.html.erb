@@ -39,7 +39,7 @@
           <% @favorite_books.each do |favorite_book| %>
             <tr>
               <th>
-                <%= link_to favorite_book.book.get_book_date(favorite_book.book.isbn).title, book_path(favorite_book.book.isbn), class: "text-dark" %>
+                <%= link_to favorite_book.book.get_book_title(favorite_book.book.isbn), book_path(favorite_book.book.isbn), class: "text-dark" %>
               </th>
               <td>
                 <div class="d-flex justify-content-end">

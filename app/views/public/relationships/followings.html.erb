@@ -2,12 +2,35 @@
   <div class="col col-md-8">
 
    <h2 class="text-center mb-3"><%= @user.name %> さんのフォロー一覧</h2>
-   
+
   <% if @followings.present? %>
-    <%= render "index", users: @followings %>
+    <table class="table border-bottom">
+      <% @followings.each do |user| %>
+        <tr>
+          <td style="width: 100px;">
+            <% if user.image.attached? %>
+              <%= image_tag user.get_image(100,100), class: "border rounded-circle" %>
+            <% else %>
+              <div class="border border-dark rounded-circle" style="height: 100px; width: 100px;"></div>
+            <% end %>
+          </td>
+          <td>
+            <h3 class="mt-2">
+              <%= link_to user.name, mypage_path(user.id), class: "text-dark" %>
+            </h3>
+            <% if current_user == @user %>
+              <h3>
+                <%= link_to "フォローを外す", relationship_path(user.id, delete_sort: 1), method: :delete %>
+              </h3>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
   <% else %>
-    <p>ユーザーはいません</p>
+    <h3>登録されたユーザーはいません</h3>
   <% end %>
-   
+
   </div>
 </div>

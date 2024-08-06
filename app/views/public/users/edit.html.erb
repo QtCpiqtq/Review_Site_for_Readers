@@ -32,17 +32,12 @@
           <td><%= f.text_field :email, class: "form-control" %></td>
         </tr>
       </table>
-      
-    </div>
 
-    <div class="col-md-5"></div>
-      <div class="col col-md-3">
-        <%= f.submit "編集内容を保存する", class: "btn btn-block btn-success mt-3" %>
+      <div class="d-flex justify-content-end mt-3">
+        <%= f.submit "編集内容を保存する", class: "btn btn-success mr-3", style: "width: 300px;" %>
+        <%= link_to "退会する", unsubscribe_path, class: "btn btn-danger", style: "width: 200px;" %>
       </div>
-      <div class="col col-md-2">
-        <%= link_to "退会する", unsubscribe_path, class: "btn btn-block btn-danger mt-3 mb-3" %>
-      </div>
+    <% end %>
 
-  <% end %>
-
+  </div>
 </div>

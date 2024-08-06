@@ -7,13 +7,13 @@ class Review < ApplicationRecord
   validates :evolution, presence: true
   validates :body, presence: true
 
-  enum evolution: {
-  ★☆☆☆☆: 1,
-  ★★☆☆☆: 2,
-  ★★★☆☆: 3,
-  ★★★★☆: 4,
-  ★★★★★: 5
-  }
+  #enum evolution: {
+  #★☆☆☆: 1,
+  #★★☆☆☆: 2,
+  #★★★☆☆: 3,
+  #★★★★☆: 4,
+  #★★★★★: 5
+  #}
 
   enum feeling_after_reading: {
     "感動的": 0,
@@ -31,10 +31,6 @@ class Review < ApplicationRecord
     "その他": 12,
   }
 
-  def get_book_date(isbn)
-    RakutenWebService::Books::Book.search(isbn: isbn).first
-  end
-  
   def good_by?(user)
     goods.exists?(user_id: user.id)
   end

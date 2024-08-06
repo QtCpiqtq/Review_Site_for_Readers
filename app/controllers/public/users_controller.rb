@@ -4,7 +4,7 @@ class Public::UsersController < ApplicationController
   def mypage
     @user = User.find(params[:id])
     @reviews = @user.reviews.all.order(created_at: :desc)
-    @wish_lists = @user.wish_lists
+    @wish_lists = @user.wish_lists.all
     @favorite_books = @user.books.all
   end
 
@@ -40,6 +40,7 @@ class Public::UsersController < ApplicationController
   def withdraw
     user = current_user
     if user.update(is_active: "無効")
+      user.update(name: user.name + "(退会済みユーザー)")
       sign_out user
       flash[:notice] = '退会が完了しました。ご利用ありがとうございました。'
       redirect_to root_path

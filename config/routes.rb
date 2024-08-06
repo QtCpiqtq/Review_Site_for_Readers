@@ -19,14 +19,14 @@ Rails.application.routes.draw do
     post "guest_login", to: "users#guest_login"
     
     resources :books, only: [:index]
-    get 'books/search' => 'books#search'
-    get 'books/:isbn', to: "books#show", as: "book"
+    get "books/search", to: "books#search"
+    get "books/:isbn", to: "books#show", as: "book"
     resources :reviews, only: [:show, :destroy]
-    get 'books/:isbn/reviews/new', to: "reviews#new", as: "new_book_review"
+    get "books/:isbn/reviews/new", to: "reviews#new", as: "new_book_review"
     post 'books/:isbn/reviews', to: "reviews#create", as: "book_reviews"
     
-    post 'reviews/:review_id/comments' => 'comments#create', as: 'review_comments'
-    delete 'reviews/comments/:id' => 'comments#destroy', as: 'review_comment'
+    post "reviews/:review_id/comments" => "comments#create", as: "review_comments"
+    delete "reviews/comments/:id" => "comments#destroy", as: "review_comment"
     
     post "reviews/:review_id/goods", to: "goods#create", as: "goods"
     delete "reviews/:review_id/goods", to: "goods#destroy", as: "good"
@@ -34,12 +34,12 @@ Rails.application.routes.draw do
     resources :favorite_books, only: [:create, :destroy]
     
     resources :wish_lists, only: [:create, :destroy]
-    get 'mypage/:id/wish_lists/index' => 'wish_lists#index', as: 'wish_lists_index'
+    get "mypage/:id/wish_lists/index", to: "wish_lists#index", as: "wish_lists_index"
     
     post "mypage/:id/relationships", to: "relationships#create", as: "relationships"
-    delete "mypage/relationships/:id", to: "relationships#destroy", as: "relationship"
-    get "mypage/:id/followings" => "relationships#followings", as: "followings"
-  	get "mypage/:id/followers" => "relationships#followers", as: "followers"
+    delete "mypage/relationships/:user_id", to: "relationships#destroy", as: "relationship"
+    get "mypage/:id/followings", to: "relationships#followings", as: "followings"
+  	get "mypage/:id/followers", to: "relationships#followers", as: "followers"
   end
   
   devise_for :admin, skip: [:registrations, :passwords], controllers: {

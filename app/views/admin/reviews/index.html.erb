@@ -10,7 +10,7 @@
         <tr>
           <td>
             <%= link_to review.user.name, admin_user_path(review.user_id), class: "text-dark" %> さんの
-            <%= review.book.get_book_date(review.book.isbn).title %> レビュー
+            <%= review.book.get_book_title(review.book.isbn) %> レビュー
           </td>
         </tr>
         <tr>

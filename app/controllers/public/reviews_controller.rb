@@ -9,7 +9,7 @@ class Public::ReviewsController < ApplicationController
 
   def new
     @book = RakutenWebService::Books::Book.search(isbn: params[:isbn]).first
-    @reviews = Review.new
+    @review = Review.new
   end
   
   def create

@@ -6,9 +6,14 @@ class Public::RelationshipsController < ApplicationController
   end
   
   def destroy
-    user = User.find(params[:id])
+    user = User.find(params[:user_id])
     current_user.unfollow(user)
-    redirect_to mypage_path(user.id)
+    case params[:delete_sort]
+    when "0"
+      redirect_to mypage_path(user.id)
+    when "1"
+      redirect_to followings_path(current_user.id)
+    end
   end
 
   def followings

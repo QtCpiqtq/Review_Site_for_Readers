@@ -9,7 +9,7 @@
   <div class="col-12 col-md-7">
     <h2 class="mb-4">
       <%= link_to @review.user.name, mypage_path(@review.user.id), class: "text-dark" %> さんの
-      <%= link_to @review.get_book_date(@review.book.isbn).title, book_path(@review.book.isbn), class: "text-dark" %> レビュー
+      <%= link_to @review.book.get_book_title(@review.book.isbn), book_path(@review.book.isbn), class: "text-dark" %> レビュー
     </h2>
   </div>
 </div>
@@ -20,7 +20,7 @@
     <h2><%= @review.feeling_after_reading %></h2>
   </div>
   <div class="col-12 col-md-2">
-    <h2 class="text-warning"><%= @review.evolution %></h2>
+    <div id="post_raty"></div>
   </div>
 </div>
 
@@ -92,3 +92,14 @@
 
   </div>
 </div>
+
+<script>
+    $('#post_raty').raty({
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      scoreName: 'review[evolution]',
+      readOnly: true,
+      score: <%= @review.evolution || 0 %>
+    });
+</script>

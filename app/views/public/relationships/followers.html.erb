@@ -2,11 +2,29 @@
   <div class="col col-md-8">
 
    <h2 class="text-center mb-3"><%= @user.name %> さんのフォロワー一覧</h2>
-   
+
   <% if @followers.present? %>
-    <%= render "index", users: @followers %>
+    <table class="table border-bottom">
+      <% @followers.each do |user| %>
+        <tr>
+          <td style="width: 100px;">
+            <% if user.image.attached? %>
+              <%= image_tag user.get_image(100,100), class: "border rounded-circle" %>
+            <% else %>
+              <div class="border border-dark rounded-circle" style="height: 100px; width: 100px;"></div>
+            <% end %>
+          </td>
+          <td>
+            <h3 class="mt-2">
+              <%= link_to user.name, mypage_path(user.id), class: "text-dark" %>
+            </h3>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
   <% else %>
-    <p>ユーザーはいません</p>
+    <h3>登録されたユーザーはいません</h3>
   <% end %>
 
   </div>
