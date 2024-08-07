@@ -7,13 +7,6 @@ class Review < ApplicationRecord
   validates :evolution, presence: true
   validates :body, presence: true
 
-  #enum evolution: {
-  #★☆☆☆: 1,
-  #★★☆☆☆: 2,
-  #★★★☆☆: 3,
-  #★★★★☆: 4,
-  #★★★★★: 5
-  #}
 
   enum feeling_after_reading: {
     "感動的": 0,

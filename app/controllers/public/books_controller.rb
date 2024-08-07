@@ -11,8 +11,10 @@ class Public::BooksController < ApplicationController
       @books = []
       reviews = Review.where(feeling_after_reading: params[:feeling_after_reading])
       reviews.each do |review|
-        result = RakutenWebService::Books::Book.search(isbn: review.book.isbn).first
-        @books << result
+        unless @books.any? {|book| book.isbn == review.book.isbn}
+          result = RakutenWebService::Books::Book.search(isbn: review.book.isbn).first
+          @books << result
+        end
       end
     else
       redirect_to books_search_path
@@ -23,6 +25,7 @@ class Public::BooksController < ApplicationController
     @book_id = Book.find_by(isbn: params[:isbn])&.id
     @book = RakutenWebService::Books::Book.search(isbn: params[:isbn]).first
     @favorite_book = FavoriteBook.new
+    @reviews = Book.get_reviews(@book.isbn)
   end
 
   private

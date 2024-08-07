@@ -16,7 +16,7 @@ class Book < ApplicationRecord
 	  else 
 	  	"本が見つかりません"
 	  end
-  end
+	end
 	
 	def self.get_reviews(isbn)
     book = Book.find_by(isbn: isbn)

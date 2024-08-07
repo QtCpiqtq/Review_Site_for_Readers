@@ -43,7 +43,7 @@
           <h3 class="ml-3"><%= @user.name %></h3>
         </td>
       </tr>
-      <% if current_user != @user && !@user.name.include?("(退会済みユーザー)") %>
+      <% if current_user != @user && @user.is_active == "有効" %>
         <tr>
           <td>
             <% if current_user.following?(@user) %>
