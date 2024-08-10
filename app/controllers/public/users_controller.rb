@@ -58,6 +58,12 @@ class Public::UsersController < ApplicationController
     sign_in(@user)
     redirect_to mypage_path(current_user.id)
   end
+  
+  def index
+    if params[:keyword].present?
+      @users= User.where("name LIKE ?", "%#{params[:keyword]}%")
+    end
+  end
 
   private
   def user_params

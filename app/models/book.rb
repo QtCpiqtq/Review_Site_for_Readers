@@ -1,5 +1,5 @@
 class Book < ApplicationRecord
-    has_many :favorite_books
+    has_many :favorite_books, dependent: :destroy
     has_many :reviews, dependent: :destroy
     has_many :wish_lists, dependent: :destroy
     

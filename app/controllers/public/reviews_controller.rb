@@ -16,7 +16,6 @@ class Public::ReviewsController < ApplicationController
     @book = Book.find_or_create_by(isbn: params[:isbn])
     @review = current_user.reviews.new(review_params)
     @review.book_id = @book.id
-    
     if @review.save
       flash[:notice] = "レビュー投稿に成功しました。"
       redirect_to mypage_path(current_user)

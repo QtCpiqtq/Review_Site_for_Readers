@@ -18,10 +18,10 @@
 
   <div class="col-10 col-md-3">
 
-    <%= link_to 'この本のレビューを投稿する', new_book_review_path(@book.isbn),
-    class: "btn btn-success btn-block mt-3 d-flex justify-content-center align-items-center", style: "height: 100px;" %>
+     <% if user_signed_in? %>
+      <%= link_to 'この本のレビューを投稿する', new_book_review_path(@book.isbn),
+      class: "btn btn-success btn-block mt-3 d-flex justify-content-center align-items-center", style: "height: 100px;" %>
 
-    <% if user_signed_in? %>
       <% if @book_id && current_user.added_to_favorites?(@book_id) %>
         <%= form_with url: favorite_book_path(@book_id, delete_sort: 1), method: :delete do |f| %>
             <%= f.submit 'お気に入りの本から解除する', class: "btn btn-light btn-block border border-dark mt-2" %>

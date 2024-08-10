@@ -12,8 +12,10 @@ class Public::BooksController < ApplicationController
       reviews = Review.where(feeling_after_reading: params[:feeling_after_reading])
       reviews.each do |review|
         unless @books.any? {|book| book.isbn == review.book.isbn}
-          result = RakutenWebService::Books::Book.search(isbn: review.book.isbn).first
-          @books << result
+          if RakutenWebService::Books::Book.search(isbn: review.book.isbn).first.present?
+            result = RakutenWebService::Books::Book.search(isbn: review.book.isbn).first
+            @books << result
+          end
         end
       end
     else

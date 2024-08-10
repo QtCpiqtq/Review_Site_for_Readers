@@ -14,11 +14,14 @@
   <body class="d-flex flex-column vh-100">
     <%= render "layouts/header" %>
 
-    <% flash.each do |message_type, message| %>
-     <div class="flash-message <%= message_type %>"><%= message %></div>
-    <% end %>
-
     <main class="container-fluid mb-auto">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+          <% flash.each do |message_type, message| %>
+           <div class="flash-message <%= message_type %>"><%= message %></div>
+          <% end %>
+        </div>
+      </div>
       <%= yield %>
     </main>
 

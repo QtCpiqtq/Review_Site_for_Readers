@@ -2,29 +2,74 @@
   <div class="col-11 col-md-6">
     <%=link_to "新規登録はこちらから", new_user_registration_path,
     class: "btn btn-block btn-primary d-flex justify-content-center align-items-center", style: "height: 50px;" %>
-    
-    <h3>レビューが多い本</h3>
-    <h3>人気のレビュー</h3>
-    <h3>最近のレビュー</h3>
-    <h3>ユーザー検索</h3>
+
+    <h3 class="mt-4">レビューが多い本</h3>
+      <table class="table border m-1">
+        <% @popular_books.each do |book| %>
+          <tr>
+            <td>
+              <h4>
+                <%= link_to book_path(book.isbn), class: "text-dark" do %>
+                <%= book.get_book_title(book.isbn) %>
+                <% end %><br>
+              </h4>
+              <%= book.get_book_date(book.isbn).author %>
+              <div class="d-flex justify-content-end">レビュー数 <%= book.reviews.count %> 件</div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+
+    <h3 class="mt-3">人気のレビュー</h3>
+      <table class="table border m-1">
+        <% @popular_reviews.each do |review| %>
+          <tr>
+              <th>
+                <%= review.user.name %> さんの <%= review.book.get_book_title(review.book.isbn) %> レビュー<br>
+              </th>
+            </tr>
+              <td>
+                <%= review.body_size(75) %>
+                <div class="d-flex justify-content-end">
+                  <%= link_to "more", review_path(review.id), class: "btn border" %>
+                </div>
+              </td>
+        <% end %>
+      </table>
+
+    <h3 class="mt-3">最近のレビュー</h3>
+      <table class="table border mt-1 mr-1 ml-1 mb-3">
+        <% @latest_reviews.each do |review| %>
+          <tr>
+            <th>
+              <%= review.user.name %> さんの <%= review.book.get_book_title(review.book.isbn) %> レビュー
+            </th>
+          </tr>
+            <td>
+              <%= review.body_size(75) %>
+              <div class="d-flex justify-content-end">
+                <%= link_to "more", review_path(review.id), class: "btn border" %>
+              </div>
+            </td>
+        <% end %>
+      </table>
 
   </div>
   <div class="col-11 col-md-2">
     <h4>本を探す</h4>
 
     <div class="m-1">
-      <p>タイトルから探す</p>
-
+      <h5>タイトルから探す</h5>
       <%= form_with url: books_path, method: :get, local: true do |f| %>
         <div class="input-group">
-          <%= f.text_field :keyword, class: "form-control" %>
+          <%= f.text_field :keyword, class: "form-control", placeholder: "タイトルを入力" %>
           <span class="input-group-btn">
             <%= f.submit '検索', class: "btn btn-outline-primary" %>
           </span>
         </div>
       <% end %>
 
-      <p class="mt-3">ユーザーの読後感から探す</p>
+      <h5 class="mt-3">読後感から探す</h5>
       <div class="m-1">
         <p><%= link_to '感動的', books_path(feeling_after_reading: '感動的') %></p>
         <p><%= link_to '楽しい', books_path(feeling_after_reading: '楽しい') %></p>
@@ -39,6 +84,22 @@
         <p><%= link_to '学びがある', books_path(feeling_after_reading: '学びがある') %></p>
         <p><%= link_to '心動かす', books_path(feeling_after_reading: '心動かす') %></p>
         <p><%= link_to 'その他', books_path(feeling_after_reading: 'その他') %></p>
+      </div>
+    </div>
+
+    <div class="mt-3 mr-1 ml-1">
+      <h4>ユーザーを探す</h4>
+
+      <div class="m-1">
+        <h5>ユーザー名から探す</h5>
+        <%= form_with url: users_path, method: :get, local: true do |f| %>
+          <div class="input-group">
+            <%= f.text_field :keyword, class: "form-control", placeholder: "ユーザー名を入力" %>
+            <span class="input-group-btn">
+              <%= f.submit '検索', class: "btn btn-outline-info" %>
+            </span>
+          </div>
+        <% end %>
       </div>
     </div>
 

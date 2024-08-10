@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     delete "mypage/relationships/:user_id", to: "relationships#destroy", as: "relationship"
     get "mypage/:id/followings", to: "relationships#followings", as: "followings"
   	get "mypage/:id/followers", to: "relationships#followers", as: "followers"
+  	resources :users, only: [:index]
   end
   
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
