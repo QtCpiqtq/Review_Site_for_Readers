@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :authenticate_user!, except: [:guest_login]
+  before_action :authenticate_user!, except: [:guest_login, :index]
   
   def mypage
     @user = User.find(params[:id])

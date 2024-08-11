@@ -15,7 +15,7 @@
           <div class="border-bottom p-1">
             <h4 class="pt-3"><%= link_to book.title, book_path(book.isbn), class: "text-dark" %></h4>
             <p><%= book.author %></p>
-            <P>レビュー数<%= Book.get_reviews(book.isbn).count %>件</P>
+            <P>レビュー数 <%= Book.get_reviews(book.isbn).count %> 件</P>
           </div>
         <% end %>
       <% else %>
