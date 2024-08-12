@@ -1,9 +1,12 @@
 <div class="row justify-content-center">
   <div class="col-11 col-md-6">
-    <%=link_to "新規登録はこちらから", new_user_registration_path,
-    class: "btn btn-block btn-primary d-flex justify-content-center align-items-center", style: "height: 50px;" %>
+    
+    <% if !user_signed_in? %>
+      <%=link_to "新規登録はこちらから", new_user_registration_path,
+      class: "btn btn-block btn-primary d-flex justify-content-center align-items-center mb-4", style: "height: 50px;" %>
+    <% end %>
 
-    <h3 class="mt-4">レビューが多い本</h3>
+    <h3>レビューが多い本</h3>
       <table class="table border m-1">
         <% @popular_books.each do |book| %>
           <tr>
