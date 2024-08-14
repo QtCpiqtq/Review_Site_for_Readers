@@ -12,11 +12,7 @@
         <tr>
           <td>ユーザーイメージ</td>
           <td>
-          <% if @user.image.attached? %>
-            <%= image_tag @user.get_image(150,150), class: "border rounded-circle" %>
-          <% else %>
-            <div class="border border-dark rounded-circle" style="height: 150px; width: 150px;"></div>
-          <% end %>
+            <%= render "public/users/user_image", user: @user, width: 150, height: 150 %>
           </td>
         </tr>
         <tr>
@@ -30,10 +26,11 @@
         <tr>
           <td>ステータス</td>
           <td>
-            <%= @user.is_active %><br>
             <% if @user.is_active == "有効" %>
+              <p class="text-success"><%= @user.is_active %></p>
               <%= link_to "無効にする", admin_user_update_path(@user.id), method: :put, data: { confirm: "[確認]このユーザーを無効にしますか?" }, class: "btn btn-outline-danger" %>
             <% elsif @user.is_active == "無効" %>
+              <p class="text-danger"><%= @user.is_active %></p>
               <%= link_to "有効にする", admin_user_update_path(@user.id), method: :put, class: "btn btn-outline-secondary" %>
             <% end %>
           </td>

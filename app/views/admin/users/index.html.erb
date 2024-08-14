@@ -14,7 +14,13 @@
         <tr>
           <td><%= user.id %></td>
           <td><%= link_to user.name, admin_user_path(user.id), class: "text-dark" %></td>
-          <td><%= user.is_active %></td>
+          <td>
+            <% if user.is_active == "有効" %>
+              <p class="text-success"><%= user.is_active %></p>
+            <% elsif user.is_active == "無効" %>
+              <p class="text-danger"><%= user.is_active %></p>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </table>

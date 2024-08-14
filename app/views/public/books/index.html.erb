@@ -3,21 +3,28 @@
 
     <h2>検索結果</h2>
 
-    <% if params[:keyword].present? %>
-      <h3>検索ワード: <%= params[:keyword] %></h3>
-    <% elsif params[:feeling_after_reading].present? %>
-      <h3>検索読後感: <%= params[:feeling_after_reading] %></h3>
-    <% end %>
+    <div class="ml-3">
+      <% if params[:keyword].present? %>
+        <h3>検索ワード : <%= params[:keyword] %></h3>
+      <% elsif params[:feeling_after_reading].present? %>
+        <h3>検索読後感 : <%= params[:feeling_after_reading] %></h3>
+      <% end %>
+    </div>
 
     <div class="m-3">
       <% if @books.present? %>
-        <% @books.each do |book| %>
-          <div class="border-bottom p-1">
-            <h4 class="pt-3"><%= link_to book.title, book_path(book.isbn), class: "text-dark" %></h4>
-            <p><%= book.author %></p>
-            <P>レビュー数 <%= Book.get_reviews(book.isbn).count %> 件</P>
-          </div>
-        <% end %>
+        <table class="table border-bottom">
+          <% @books.each do |book| %>
+            <tr>
+              <td>
+                <h4 class="pt-3"><%= link_to book.title, book_path(book.isbn), class: "text-dark" %></h4>
+                <p><%= book.author %></p>
+                <P>レビュー数 <%= Book.get_reviews(book.isbn).count %> 件</P>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+
       <% else %>
         <h3>本が見つかりません</h3>
       <% end %>

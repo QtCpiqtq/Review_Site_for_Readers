@@ -1,11 +1,7 @@
 <div class="row justify-content-center">
 
   <div class="col-12 col-md-1">
-    <% if @review.user.image.attached? %>
-      <%= image_tag @review.user.get_image(100,100), class: "border rounded-circle" %>
-    <% else %>
-      <div class="border border-dark rounded-circle" style="height: 100px; width: 100px;"></div>
-    <% end %>
+    <%= render "public/users/user_image", user: @review.user, width: 100, height: 100 %>
   </div>
 
   <div class="col-12 col-md-7 pt-3">
@@ -35,11 +31,7 @@
           <% @review.comments.each do |comment| %>
           <tr>
             <td style="width: 75px;">
-              <% if comment.user.image.attached? %>
-                <%= image_tag comment.user.get_image(75,75), class: "border rounded-circle" %>
-              <% else %>
-                <div class="border border-dark rounded-circle" style="height: 75px; width: 75px;"></div>
-              <% end %>
+              <%= render "public/users/user_image", user: comment.user, width: 75, height: 75 %>
             </td>
             <td>
               <p>

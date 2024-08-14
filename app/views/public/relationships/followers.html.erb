@@ -8,11 +8,7 @@
       <% @followers.each do |user| %>
         <tr>
           <td style="width: 100px;">
-            <% if user.image.attached? %>
-              <%= image_tag user.get_image(100,100), class: "border rounded-circle" %>
-            <% else %>
-              <div class="border border-dark rounded-circle" style="height: 100px; width: 100px;"></div>
-            <% end %>
+            <%= render "public/users/user_image", user: user, width: 100, height: 100 %>
           </td>
           <td>
             <h3 class="mt-2">

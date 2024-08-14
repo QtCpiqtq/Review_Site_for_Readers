@@ -1,7 +1,11 @@
 <div class="row justify-content-center">
   <div class="col col-md-8">
-
-    <h4>レビュー一覧</h4>
+    
+    <% if @user.present? %>
+      <h4><%= @user.name %> のレビュー一覧</h4>
+    <% else %>
+      <h4>レビュー一覧</h4>
+    <% end %>
 
     <% if @reviews.present? %>
       <% @reviews.each do |review| %>
@@ -9,7 +13,7 @@
         <table class="table border mr-1 ml-1 mb-3">
         <tr>
           <td>
-            <%= link_to review.user.name, admin_user_path(review.user_id), class: "text-dark" %> さんの
+            <%= review.user.name %> さんの
             <%= review.book.get_book_title(review.book.isbn) %> レビュー
           </td>
         </tr>

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   }
   
   scope module: :public do
+    get "users", to:  redirect("/users/sign_up")
     get "mypage/:id", to: "users#mypage", as: "mypage"
     get "information", to: "users#information"
     get "information/edit", to: "users#edit"
@@ -40,7 +41,7 @@ Rails.application.routes.draw do
     delete "mypage/relationships/:user_id", to: "relationships#destroy", as: "relationship"
     get "mypage/:id/followings", to: "relationships#followings", as: "followings"
   	get "mypage/:id/followers", to: "relationships#followers", as: "followers"
-  	resources :users, only: [:index]
+  	get "users/index", to: "users#index", as: "users_index"
   end
   
   devise_for :admin, skip: [:registrations, :passwords], controllers: {

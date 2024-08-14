@@ -25,11 +25,7 @@
     <table class="table table-borderless">
       <tr>
         <td>
-          <% if @user.image.attached? %>
-            <%= image_tag @user.get_image(150,150), class: "border rounded-circle" %>
-          <% else %>
-            <div class="border border-dark rounded-circle" style="height: 150px; width: 150px;"></div>
-          <% end %>
+          <%= render "public/users/user_image", user: @user, width: 150, height: 150 %>
         </td>
       </tr>
       <tr>

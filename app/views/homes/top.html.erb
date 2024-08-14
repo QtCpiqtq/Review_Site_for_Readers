@@ -95,7 +95,7 @@
 
       <div class="m-1">
         <h5>ユーザー名から探す</h5>
-        <%= form_with url: users_path, method: :get, local: true do |f| %>
+        <%= form_with url: users_index_path, method: :get, local: true do |f| %>
           <div class="input-group">
             <%= f.text_field :keyword, class: "form-control", placeholder: "ユーザー名を入力" %>
             <span class="input-group-btn">

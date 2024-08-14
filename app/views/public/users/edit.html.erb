@@ -1,42 +1,39 @@
 <div class="row">
-  <div class="col-md-2"></div>
-  <div class="col col-md-8">
+  <div class="col-md-8 offset-md-2">
 
     <h2>会員情報編集</h2>
 
     <%= form_with model: @user, url: information_edit_path, method: :patch do |f| %>
-    <%= render "public/shared/error_messages", resource: @user %>
-
-      <table class="table border-bottom m-1">
-        <tr>
-          <th>プロフィール画像</th>
-          <td>
-            <% if @user.image.attached? %>
-              <div class ="d-flex align-items-end">
-                <%= image_tag @user.get_image(150,150), class: "border rounded-circle" %>
-                <p><%= link_to "プロフィール画像を設定しない", image_destroy_path, method: :delete, class: "text-dark" %></p>
-              </div>
-            <% else %>
-              <%= f.file_field :image, accept: "image/*" %>
-            <% end %>
-          </td>
-        </tr>
-
-        <tr>
-          <th>ユーザーネーム</th>
-          <td><%= f.text_field :name, class: "form-control" %></td>
-        </tr>
-
-        <tr>
-          <th>メールアドレス</th>
-          <td><%= f.text_field :email, class: "form-control" %></td>
-        </tr>
-      </table>
-
-      <div class="d-flex justify-content-end mt-3">
-        <%= f.submit "編集内容を保存する", class: "btn btn-success mr-3", style: "width: 300px;" %>
-        <%= link_to "退会する", unsubscribe_path, class: "btn btn-danger", style: "width: 200px;" %>
+      <%= render "public/shared/error_messages", resource: @user %>
+      <div class="mb-2">
+        <%= f.label :image, "プロフィール画像" %>
+        <% if @user.image.attached? %>
+          <div class ="d-flex align-items-end">
+            <%= image_tag @user.get_image(150,150), class: "border rounded-circle" %>
+            <p><%= link_to "プロフィール画像を設定しない", image_destroy_path, method: :delete, class: "text-dark" %></p>
+          </div>
+        <% else %>
+          <%= f.file_field :image, accept: "image/*", class: "form-control" %>
+        <% end %>
       </div>
+      <div class="mb-2">
+        <%= f.label :name, "ユーザーネーム" %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="mb-2">
+        <%= f.label :email, "メールアドレス" %>
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-5 offset-md-4">
+          <%= f.submit "編集内容を保存する", class: "btn btn-success btn-block mb-3" %>
+        </div>
+        <div class="col-md-3">
+          <%= link_to "退会する", unsubscribe_path, class: "btn btn-danger btn-block mb-3" %>
+        </div>
+      </div>
+        
     <% end %>
 
   </div>

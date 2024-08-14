@@ -1,0 +1,5 @@
+<% if user.image.attached? %>
+  <%= image_tag user.get_image(width,height), class: "border rounded-circle" %>
+<% else %>
+  <div class="border border-dark rounded-circle" style="height: <%= height %>px; width: <%= width %>px;"></div>
+<% end %>
