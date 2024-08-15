@@ -4,9 +4,9 @@ class Admin::ReviewsController < ApplicationController
   def index
     if params[:search_reviews_id].present?
       @user = User.find(params[:search_reviews_id])
-      @reviews = @user.reviews.all.order(created_at: :desc)
+      @reviews = @user.reviews.page(params[:page]).order(created_at: :desc)
     else
-      @reviews = Review.all.order(created_at: :desc)
+      @reviews = Review.page(params[:page]).order(created_at: :desc)
     end
   end
 

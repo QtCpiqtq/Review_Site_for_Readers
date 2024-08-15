@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
   
   def mypage
     @user = User.find(params[:id])
-    @reviews = @user.reviews.all.order(created_at: :desc)
+    @reviews = @user.reviews.page(params[:page]).order(created_at: :desc)
     @wish_lists = @user.wish_lists.all
     @favorite_books = @user.books.all
   end
@@ -61,7 +61,8 @@ class Public::UsersController < ApplicationController
   
   def index
     if params[:keyword].present?
-      @users= User.where("name LIKE ?", "%#{params[:keyword]}%")
+      active_users = User.where(is_active: "有効")
+      @users = active_users.where("name LIKE ?", "%#{params[:keyword]}%").page(params[:page])
     end
   end
 

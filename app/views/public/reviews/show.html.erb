@@ -74,7 +74,7 @@
         </div>
       <% end %>
 
-      <table class="table border-bottom mt-3">
+      <table class="table border-bottom mt-3 mb-3">
         <% @comments.each do |comment| %>
         <tr>
           <td style="width: 75px;">
@@ -90,6 +90,9 @@
           </td>
         </tr>
       </table>
+      
+      <%= paginate @comments %>
+      
     </div>
 
   </div>
