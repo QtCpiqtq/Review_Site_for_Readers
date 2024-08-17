@@ -11,7 +11,7 @@ class Public::CommentsController < ApplicationController
     else
       flash.now[:alert] = "コメント投稿に失敗しました。"
       @comment = Comment.new
-      @comments = Comment.all
+      @comments = @review.comments.page(params[:page]).order(created_at: :desc)
       render 'public/reviews/show'
     end
   end

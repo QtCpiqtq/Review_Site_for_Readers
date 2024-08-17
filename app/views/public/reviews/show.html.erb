@@ -74,28 +74,28 @@
         </div>
       <% end %>
 
-      <table class="table border-bottom mt-3 mb-3">
-        <% if @comments.present? %>
-          <% @comments.each do |comment| %>
-          <tr>
-            <td style="width: 75px;">
-              <%= render "public/users/user_image", user: comment.user, width: 75, height: 75 %>
-            </td>
-            <td>
-              <p><%= link_to comment.user.name, mypage_path(comment.user_id), class: "text-dark" %></p>
-              <p><%= comment.body %></p>
-              <% if comment.user == current_user %>
-                <p class="text-right"><%= link_to 'コメント削除', review_comment_path(comment.id), method: :delete, class: "btn border" %></p>
-              <% end %>
-          <% end %>
-            </td>
-          </tr>
-        </table>
+     <% if @comments.present? %>
+       <table class="table border-bottom mt-3">
+        <% @comments.each do |comment| %>
+        <tr>
+          <td style="width: 75px;">
+            <%= render "public/users/user_image", user: comment.user, width: 75, height: 75 %>
+          </td>
+          <td>
+            <p><%= link_to comment.user.name, mypage_path(comment.user_id), class: "text-dark" %></p>
+            <p><%= comment.body %></p>
+            <% if comment.user == current_user %>
+              <p class="text-right"><%= link_to 'コメント削除', review_comment_path(comment.id), method: :delete, class: "btn border" %></p>
+            <% end %>
+        <% end %>
+          </td>
+        </tr>
+      </table>
         
-        <%= paginate @comments %>
+      <%= paginate @comments %>
       
       <% else %>
-        <p>コメントががありません</p>
+        <p class="text-center mt-3">コメントがありません</p>
       <% end %>
     </div>
 
