@@ -28,7 +28,7 @@
       <p><b>コメント</b></p>
       <% if @review.comments.present? %>
         <table class="table border-bottom">
-          <% @review.comments.each do |comment| %>
+          <% @comments.each do |comment| %>
           <tr>
             <td style="width: 75px;">
               <%= render "public/users/user_image", user: comment.user, width: 75, height: 75 %>
@@ -49,6 +49,9 @@
           </tr>
         <% end %>
         </table>
+        
+        <%= paginate @comments %>
+        
       <% else %>
         <p>コメントはありません</p>
       <% end %>
