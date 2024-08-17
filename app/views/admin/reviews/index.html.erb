@@ -30,12 +30,13 @@
           </td>
         </tr>
         </table>
+        
+        <%= paginate @reviews %>
+        
       <% end %>
     <% else %>
       <h4 class="mt-3 ml-1">レビューがありません</h4>
     <% end %>
-    
-    <%= paginate @reviews %>
     
   </div>
 </div>
