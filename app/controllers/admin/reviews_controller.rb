@@ -12,7 +12,7 @@ class Admin::ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
-    @comments = @review.comment.page(params[:page]).order(created_at: :desc)
+    @comments = @review.comments.page(params[:page]).order(created_at: :desc)
   end
   
   def destroy
