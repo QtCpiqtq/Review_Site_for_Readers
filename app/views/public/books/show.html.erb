@@ -56,7 +56,7 @@
     <%if @reviews.present? %>
 
       <table class="table border-bottom">
-        <% @reviews.each do |review| %>
+        <% @reviews_sorted.each do |review| %>
           <tr>
             <td style="width: 75px;">
               <%= render "public/users/user_image", user: review.user, width: 75, height: 75 %>
@@ -82,6 +82,8 @@
           </tr>
         <% end %>
       </table>
+
+      <%= paginate @reviews_sorted %>
 
     <% else %>
         <h4>まだレビューがありません</h4>

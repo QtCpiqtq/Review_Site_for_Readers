@@ -42,10 +42,10 @@ class Public::UsersController < ApplicationController
     if user.update(is_active: "無効")
       user.update(name: user.name + "(退会済みユーザー)")
       sign_out user
-      flash[:notice] = '退会が完了しました。ご利用ありがとうございました。'
+      flash[:notice] = "退会が完了しました。ご利用ありがとうございました。"
       redirect_to root_path
     else
-      flash.now[:alert] = '退会に失敗しました。時間をおいてから再度お試しください。'
+      flash.now[:alert] = "退会に失敗しました。時間をおいてから再度お試しください。"
       render :edit
     end
   end
