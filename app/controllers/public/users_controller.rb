@@ -14,6 +14,9 @@ class Public::UsersController < ApplicationController
   end
 
   def edit
+    if current_user.email == 'guest@guest'
+      redirect_to information_path
+    end
     @user = current_user
   end
 
@@ -35,6 +38,9 @@ class Public::UsersController < ApplicationController
   end
 
   def unsubscribe
+    if current_user.email == 'guest@guest'
+      redirect_to information_path
+    end
   end
 
   def withdraw
