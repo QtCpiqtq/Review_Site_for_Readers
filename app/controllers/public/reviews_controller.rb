@@ -10,6 +10,7 @@ class Public::ReviewsController < ApplicationController
   def new
     @book = RakutenWebService::Books::Book.search(isbn: params[:isbn]).first
     @review = Review.new
+    @feeling_after_reading = FeelingAfterReading.all
   end
   
   def create
@@ -36,6 +37,6 @@ class Public::ReviewsController < ApplicationController
   private
   
   def review_params
-    params.require(:review).permit(:evolution, :feeling_after_reading, :body)
+    params.require(:review).permit(:evolution, :body, :feeling_after_reading_id)
   end
 end

@@ -10,3 +10,51 @@ Admin.create!(
     email: 'admin@admin',
     password: '111111'
 )
+
+FeelingAfterReading.create!(
+    name: '感動的'
+)
+
+FeelingAfterReading.create!(
+    name: '楽しい'
+)
+
+FeelingAfterReading.create!(
+    name: '悲しい'
+)
+
+FeelingAfterReading.create!(
+    name: 'ワクワク'
+)
+
+FeelingAfterReading.create!(
+    name: '怖い'
+)
+
+FeelingAfterReading.create!(
+    name: 'ときめく'
+)
+
+FeelingAfterReading.create!(
+    name: '爽快'
+)
+
+FeelingAfterReading.create!(
+    name: 'モヤモヤする'
+)
+
+FeelingAfterReading.create!(
+    name: '笑える'
+)
+
+FeelingAfterReading.create!(
+    name: '実用的'
+)
+
+FeelingAfterReading.create!(
+    name: '学びがある'
+)
+
+FeelingAfterReading.create!(
+    name: '心動かす'
+)

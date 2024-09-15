@@ -31,8 +31,8 @@
       <p class="lh-sm"><%= @review.body %></p>
 
       <% if @review.feeling_after_reading.present? %>
-        <%= link_to books_path(feeling_after_reading: @review.feeling_after_reading) do %>
-          #<%= @review.feeling_after_reading %>
+        <%= link_to books_path(feeling_after_reading_id: @review.feeling_after_reading_id) do %>
+          #<%= @review.feeling_after_reading.name %>
         <% end %>
       <% end %>
 

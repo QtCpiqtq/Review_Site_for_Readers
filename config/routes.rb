@@ -47,15 +47,16 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: 'admin/sessions'
   }
-   
-  scope module: :admin do
-    get "admin_reviews", to: "reviews#index", as: "admin_reviews"
-    get "admin_review/:id", to: "reviews#show", as: "admin_review"
-    delete "admin_review/:id", to: "reviews#destroy", as: "admin_review_destroy"
-    delete "admin_comment/:id", to: "comments#destroy", as: "admin_comment_destroy"
-    get "admin_users", to: "users#index", as: "admin_users"
-    get "admin_users/:id", to: "users#show", as: "admin_user"
-    put "admin_users/:id", to: "users#update", as: "admin_user_update"
+  
+  namespace :admin do
+    get "reviews", to: "reviews#index", as: "reviews"
+    get "review/:id", to: "reviews#show", as: "review"
+    delete "review/:id", to: "reviews#destroy", as: "review_destroy"
+    delete "comment/:id", to: "comments#destroy", as: "comment_destroy"
+    get "users", to: "users#index", as: "users"
+    get "users/:id", to: "users#show", as: "user"
+    put "users/:id", to: "users#update", as: "user_update"
+    resources :feeling_after_readings
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

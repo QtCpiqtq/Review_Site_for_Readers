@@ -9,6 +9,7 @@ class HomesController < ApplicationController
     a.goods.size
     }.first(3)
     @latest_reviews = Review.order(created_at: :desc).first(3)
+    @feeling_after_readings = FeelingAfterReading.all
   end
 
   def about

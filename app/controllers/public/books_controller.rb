@@ -2,14 +2,16 @@ class Public::BooksController < ApplicationController
   before_action :authenticate_user!, except: [:search, :index, :show]
 
   def search
+    @feeling_after_readings = FeelingAfterReading.all
   end
 
   def index
     if params[:keyword].present?
       @books = RakutenWebService::Books::Book.search(title: params[:keyword])
-    elsif params[:feeling_after_reading].present?
+    elsif params[:feeling_after_reading_id].present?
+      @feeling_after_reading = FeelingAfterReading.find(params[:feeling_after_reading_id])
       @books = []
-      reviews = Review.where(feeling_after_reading: params[:feeling_after_reading])
+      reviews = Review.where(feeling_after_reading_id: params[:feeling_after_reading_id])
       reviews.each do |review|
         unless @books.any? {|book| book.isbn == review.book.isbn}
           if RakutenWebService::Books::Book.search(isbn: review.book.isbn).first.present?

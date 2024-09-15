@@ -6,8 +6,8 @@
     <div class="ml-3">
       <% if params[:keyword].present? %>
         <h3>検索ワード : <%= params[:keyword] %></h3>
-      <% elsif params[:feeling_after_reading].present? %>
-        <h3>検索読後感 : <%= params[:feeling_after_reading] %></h3>
+      <% elsif params[:feeling_after_reading_id].present? %>
+        <h3>検索読後感 : <%= @feeling_after_reading.name %></h3>
       <% end %>
     </div>
 
