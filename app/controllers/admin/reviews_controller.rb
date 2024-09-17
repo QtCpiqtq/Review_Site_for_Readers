@@ -17,8 +17,12 @@ class Admin::ReviewsController < ApplicationController
   
   def destroy
     @review = Review.find(params[:id])
-    @review.destroy
-    flash[:notice] = "レビューを削除しました。"
-    redirect_to admin_reviews_path
+    if @review.destroy
+      flash[:notice] = "レビューを削除しました。"
+      redirect_to admin_reviews_path
+    else
+      flash.now[:alert] = "レビュー削除に失敗しました"
+      render :show
+    end
   end
 end

@@ -58,3 +58,19 @@ FeelingAfterReading.create!(
 FeelingAfterReading.create!(
     name: '心動かす'
 )
+
+10.times do |n|
+  User.create!(
+    email: "1@#{n + 1}",
+    name: "#{n + 1}太郎",
+    password: "11111#{n + 1}"
+  )
+end
+
+10.times do |n|
+  User.create!(
+    email: "2@#{n + 1}",
+    name: "読者#{n + 1}号",
+    password: "11111#{n + 1}"
+  )
+end

@@ -1,4 +1,6 @@
 class Admin::FeelingAfterReadingsController < ApplicationController
+  before_action :authenticate_admin!
+  
   def index
     @feeling_after_reading =  FeelingAfterReading.new
     @feeling_after_readings = FeelingAfterReading.all

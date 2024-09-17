@@ -1,7 +1,7 @@
 class Review < ApplicationRecord
   belongs_to :user
   belongs_to :book
-  belongs_to :feeling_after_reading
+  belongs_to :feeling_after_reading, optional: true
   has_many :comments, dependent: :destroy
   has_many :goods, dependent: :destroy
   
