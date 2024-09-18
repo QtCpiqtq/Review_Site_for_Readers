@@ -29,10 +29,13 @@ class Public::BooksController < ApplicationController
     @book_id = Book.find_by(isbn: params[:isbn])&.id
     @book = RakutenWebService::Books::Book.search(isbn: params[:isbn]).first
     @favorite_book = FavoriteBook.new
+    @favorite_books = Book.get_favorite_books(@book.isbn)
+    @users_added_to_favorites = User.where(favorite_books: @favorite_books).first(5)
     @reviews = Book.get_reviews(@book.isbn)
     if @reviews.present?
       @reviews_sorted = @reviews.page(params[:page]).order(created_at: :desc)
     end
+    
   end
 
   private

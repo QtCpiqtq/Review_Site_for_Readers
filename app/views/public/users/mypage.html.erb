@@ -7,7 +7,7 @@
       <% @reviews.each do |review| %>
         <div class="border p-3 mb-3 ">
           <h4><%= review.book.get_book_title(review.book.isbn) %> のレビュー</h4>
-          <%= review.body_size(200) %>
+          <%= review.body.truncate(200) %>
           <div class="d-flex justify-content-end">
             <%= link_to 'more', review_path(review.id), class: "btn border" %>
           </div>

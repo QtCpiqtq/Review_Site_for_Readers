@@ -1,8 +1,14 @@
 <div class="row justify-content-center">
   <div class="col col-md-7 m-1">
     
-    <h2>検索結果</h2>
-    <h3 class="ml-3">検索ワード : <%= params[:keyword] %></h3>
+    <% if params[:keyword].present? %>
+      <h2>検索結果</h2>
+      <h3 class="ml-3">検索ワード : <%= params[:keyword] %></h3>
+    <% end %>
+    
+    <% if params[:favorite_book_id].present? %>
+      <h2>お気に入りの本に登録しているユーザー</h2>
+    <% end %>
     
      <div class="m-3">
       <% if @users.present? %>

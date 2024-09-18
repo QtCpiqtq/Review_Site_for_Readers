@@ -66,9 +66,12 @@ class Public::UsersController < ApplicationController
   end
   
   def index
+    active_users = User.where(is_active: "有効")
     if params[:keyword].present?
-      active_users = User.where(is_active: "有効")
       @users = active_users.where("name LIKE ?", "%#{params[:keyword]}%").page(params[:page])
+    end
+    if params[:favorite_book_id].present?
+      @users = active_users.joins(:favorite_books).where(favorite_books: { book_id: params[:favorite_book_id] }).page(params[:page])
     end
   end
 

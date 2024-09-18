@@ -32,7 +32,7 @@
               </th>
             </tr>
               <td>
-                <%= review.body_size(75) %>
+                <%= review.body.truncate(75) %>
                 <div class="d-flex justify-content-end">
                   <%= link_to "more", review_path(review.id), class: "btn border" %>
                 </div>
@@ -49,7 +49,7 @@
             </th>
           </tr>
             <td>
-              <%= review.body_size(75) %>
+              <%= review.body.truncate(75) %>
               <div class="d-flex justify-content-end">
                 <%= link_to "more", review_path(review.id), class: "btn border" %>
               </div>

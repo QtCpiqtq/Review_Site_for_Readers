@@ -11,12 +11,4 @@ class Review < ApplicationRecord
   def good_by?(user)
     goods.exists?(user_id: user.id)
   end
-  
-  def body_size(size)
-    if self.body.length > size
-      self.body.truncate(size)
-    else
-      self.body
-    end
-  end
 end

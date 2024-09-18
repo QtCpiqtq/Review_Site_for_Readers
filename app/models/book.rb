@@ -18,6 +18,15 @@ class Book < ApplicationRecord
 	  end
 	end
 	
+	def self.get_favorite_books(isbn)
+    book = Book.find_by(isbn: isbn)
+    if book
+      book.favorite_books
+    else
+      []
+    end
+	end
+	
 	def self.get_reviews(isbn)
     book = Book.find_by(isbn: isbn)
     if book
