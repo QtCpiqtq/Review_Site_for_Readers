@@ -1,9 +1,10 @@
 class Book < ApplicationRecord
-    has_many :favorite_books, dependent: :destroy
-    has_many :reviews, dependent: :destroy
-    has_many :wish_lists, dependent: :destroy
+  has_many :favorite_books, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :wish_lists, dependent: :destroy
     
-
+   validates :isbn, presence: true
+    
 	def get_book_date(isbn)
 	  book = RakutenWebService::Books::Book.search(isbn: isbn).first
 	  book.present? ? book : nil

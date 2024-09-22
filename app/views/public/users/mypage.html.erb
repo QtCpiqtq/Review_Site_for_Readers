@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
   <div class="col-11 col-md-7">
-    <h2 class="text-center mb-5"><%= @user.name %> さんのレビュー</h2>
+    <h2 class="text-center mb-5"><%= @user.name_with_status %> さんのレビュー</h2>
 
     <%if @reviews.present? %>
 
@@ -33,7 +33,7 @@
       </tr>
       <tr>
         <td>
-          <h3 class="ml-3"><%= @user.name %></h3>
+          <h3 class="ml-3"><%= @user.name_with_status %></h3>
         </td>
       </tr>
       <% if current_user != @user && @user.is_active == "有効" %>

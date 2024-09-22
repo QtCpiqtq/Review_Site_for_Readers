@@ -2,7 +2,7 @@
   <div class="col col-md-6">
     
     <% if @user.present? %>
-      <h4><%= @user.name %> のレビュー一覧</h4>
+      <h4><%= @user.name_with_status %> のレビュー一覧</h4>
     <% else %>
       <h4>レビュー一覧</h4>
     <% end %>
@@ -13,7 +13,7 @@
         <table class="table border mr-1 ml-1 mb-3">
         <tr>
           <td>
-            <%= review.user.name %> さんの
+            <%= review.user.name_with_status %> さんの
             <%= review.book.get_book_title(review.book.isbn) %> レビュー
           </td>
         </tr>

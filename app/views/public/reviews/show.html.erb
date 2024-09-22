@@ -7,7 +7,7 @@
         </td>
         <td>
           <h2 class="pl-3">
-            <%= link_to @review.user.name, mypage_path(@review.user.id), class: "text-dark" %> さんの
+            <%= link_to @review.user.name_with_status, mypage_path(@review.user.id), class: "text-dark" %> さんの
             <% if @review.book.get_book_date(@review.book.isbn).present? %>
               <%= link_to @review.book.get_book_title(@review.book.isbn), book_path(@review.book.isbn), class: "text-dark" %> レビュー
             <% else %>
@@ -82,7 +82,7 @@
             <%= render "public/users/user_image", user: comment.user, width: 75, height: 75 %>
           </td>
           <td>
-            <p><%= link_to comment.user.name, mypage_path(comment.user_id), class: "text-dark" %></p>
+            <p><%= link_to comment.user.name_with_status, mypage_path(comment.user_id), class: "text-dark" %></p>
             <p><%= comment.body %></p>
             <% if comment.user == current_user %>
               <p class="text-right"><%= link_to 'コメント削除', review_comment_path(comment.id), method: :delete, class: "btn border" %></p>

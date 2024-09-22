@@ -65,7 +65,7 @@
         <% @users_added_to_favorites.each do |users_added_to_favorite| %>
           <td class ="pr-3 pl-4">
             <%= link_to mypage_path(users_added_to_favorite.id), class: "text-dark" do %>
-              <%= users_added_to_favorite.name.truncate(8) %>
+              <%= users_added_to_favorite.name_with_status.truncate(8) %>
             <% end %>
           </td>
         <% end %>
@@ -91,7 +91,7 @@
             <td>
               <p>
                 <%= link_to mypage_path(review.user_id), class: "text-dark" do %>
-                  <%= review.user.name %>
+                  <%= review.user.name_with_status %>
                 <% end %>
               </p>
               <p>

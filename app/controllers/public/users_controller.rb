@@ -46,7 +46,6 @@ class Public::UsersController < ApplicationController
   def withdraw
     user = current_user
     if user.update(is_active: "無効")
-      user.update(name: user.name + "(退会済みユーザー)")
       sign_out user
       flash[:notice] = "退会が完了しました。ご利用ありがとうございました。"
       redirect_to root_path

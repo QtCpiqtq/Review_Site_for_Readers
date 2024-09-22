@@ -19,7 +19,15 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-
+  
+  def name_with_status
+    if self.is_active == "有効"
+      name
+    elsif self.is_active == "無効"
+      name + "(退会済みユーザー)"
+    end
+  end
+  
   def get_image(width, height)
     image.variant(resize_to_fill: [width, height]).processed
   end

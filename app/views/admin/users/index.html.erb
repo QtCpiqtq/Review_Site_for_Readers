@@ -13,7 +13,7 @@
       <% @users.each do |user| %>
         <tr>
           <td><%= user.id %></td>
-          <td><%= link_to user.name, admin_user_path(user.id), class: "text-dark" %></td>
+          <td><%= link_to user.name_with_status, admin_user_path(user.id), class: "text-dark" %></td>
           <td>
             <% if user.is_active == "有効" %>
               <p class="text-success"><%= user.is_active %></p>
@@ -24,7 +24,7 @@
         </tr>
       <% end %>
     </table>
-    
+
     <%= paginate @users %>
 
   </div>

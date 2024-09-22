@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
   <div class="col-11 col-md-6">
-    
+
     <% if !user_signed_in? %>
       <%=link_to "新規登録はこちらから", new_user_registration_path,
       class: "btn btn-block btn-primary d-flex justify-content-center align-items-center mb-4", style: "height: 50px;" %>
@@ -28,7 +28,7 @@
         <% @popular_reviews.each do |review| %>
           <tr>
               <th>
-                <%= review.user.name %> さんの <%= review.book.get_book_title(review.book.isbn) %> レビュー<br>
+                <%= review.user.name_with_status %> さんの <%= review.book.get_book_title(review.book.isbn) %> レビュー<br>
               </th>
             </tr>
               <td>
@@ -45,7 +45,7 @@
         <% @latest_reviews.each do |review| %>
           <tr>
             <th>
-              <%= review.user.name %> さんの <%= review.book.get_book_title(review.book.isbn) %> レビュー
+              <%= review.user.name_with_status %> さんの <%= review.book.get_book_title(review.book.isbn) %> レビュー
             </th>
           </tr>
             <td>
