@@ -20,7 +20,7 @@
             読後感(任意)
           </th>
           <td>
-            <%= f.collection_select(:feeling_after_reading_id, @feeling_after_reading, :id, :name, {prompt: "--読後感を選択--"}) %>
+            <%= f.collection_select(:feeling_after_reading_id, @feeling_after_reading || [], :id, :name, {prompt: "--読後感を選択--"}, {include_blank: true}) %>
           </td>
         </tr>
         <tr>
